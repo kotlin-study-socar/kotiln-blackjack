@@ -2,6 +2,8 @@ package water.blackjack.model
 
 import water.blackjack.exception.ExceptionMessages
 import water.blackjack.exception.OutOfCardException
+import water.blackjack.model.enums.CardSuit
+import water.blackjack.model.enums.CardValue
 
 class CardsDeck {
     private val cards = CardSuit.values().flatMap {

@@ -2,6 +2,8 @@ package water.blackjack.model
 
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
+import water.blackjack.model.enums.CardSuit
+import water.blackjack.model.enums.CardValue
 
 class CardTest {
 

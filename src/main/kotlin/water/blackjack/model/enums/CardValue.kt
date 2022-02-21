@@ -1,4 +1,4 @@
-package water.blackjack.model
+package water.blackjack.model.enums
 
 enum class CardValue(
     val showName: String,

@@ -1,4 +1,4 @@
-package water.blackjack.model
+package water.blackjack.model.enums
 
 enum class CardSuit(val patternName: String) {
     CLOVER("클로버"),

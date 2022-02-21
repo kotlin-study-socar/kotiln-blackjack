@@ -1,5 +1,8 @@
 package water.blackjack.model
 
+import water.blackjack.model.enums.CardSuit
+import water.blackjack.model.enums.CardValue
+
 class Card(
     private val suit: CardSuit,
     private val rank: CardValue
