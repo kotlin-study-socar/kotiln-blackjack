@@ -6,6 +6,8 @@ import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.assertThrows
 import water.blackjack.exception.AlreadyStayStatusException
+import water.blackjack.model.enums.CardSuit
+import water.blackjack.model.enums.CardValue
 
 class ParticipantTest {
     private val cardsDeck = CardsDeck()
@@ -29,6 +31,51 @@ class ParticipantTest {
             participant.updateToStayStatus()
         }
     }
+    @Test
+    fun `ACE 카드가 포함되어있을 때 다른 카드와의 합이 21을 넘지 않으면 11로 계산한 값을 반환한다`() {
+        // 'Ace' 카드와 'King' 카드를 카드 셋에 추가
+        participant.addSampleCardsWithAceCardUnderSumLimit()
+        val kingCardValue = 10
+        val aceValue = 11
+        assertEquals(participant.getSumOfValues(),aceValue+kingCardValue)
+    }
 
-    class TestParticipant(override val name: String = "TEST") : Participant()
+    @Test
+    fun `ACE 카드가 포함되어있을 때 다른 카드와의 합이 21을 넘는다면 1로 계산한 값을 반환한다`() {
+        // 'Ace' 카드, 'King' 카드, '9' 카드를 카드 셋에 추가
+        participant.addSampleCardsWithAceCardOverSumLimit()
+        val kingCardValue = 10
+        val cardNineValue = 9
+        val aceValue = 1
+        assertEquals(participant.getSumOfValues(),aceValue+kingCardValue+cardNineValue)
+    }
+
+    @Test
+    fun `Ace 카드 두 장과 9라는 카드가 있으면 Ace 카드 1장은 1점, 다른 한장은 11점으로 계산하여 21을 반환한다`() {
+        // 두 장의 'Ace' 카드와 '9' 카드를 카드 셋에 추가
+        participant.addTwoAceCardsWithCardNine()
+        assertEquals(participant.getSumOfValues(),21)
+    }
+
+    class TestParticipant(override val name: String = "TEST") : Participant(){
+        fun addSampleCardsWithAceCardUnderSumLimit() {
+            cards.addAll(setOf(
+                Card(CardSuit.SPADE, CardValue.ACE),
+                Card(CardSuit.SPADE,CardValue.KING)))
+        }
+
+        fun addSampleCardsWithAceCardOverSumLimit() {
+            cards.addAll(setOf(
+                Card(CardSuit.SPADE,CardValue.ACE),
+                Card(CardSuit.SPADE,CardValue.KING),
+                Card(CardSuit.SPADE,CardValue.NINE)))
+        }
+
+        fun addTwoAceCardsWithCardNine(){
+            cards.addAll(setOf(
+                Card(CardSuit.SPADE,CardValue.ACE),
+                Card(CardSuit.HEART,CardValue.ACE),
+                Card(CardSuit.SPADE,CardValue.NINE)))
+        }
+    }
 }

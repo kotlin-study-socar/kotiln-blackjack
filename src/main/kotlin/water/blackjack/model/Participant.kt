@@ -2,6 +2,7 @@ package water.blackjack.model
 
 import water.blackjack.exception.AlreadyStayStatusException
 import water.blackjack.exception.ExceptionMessages
+import water.blackjack.model.enums.CardValue
 import water.blackjack.model.enums.GameStatus
 
 abstract class Participant {
@@ -24,6 +25,20 @@ abstract class Participant {
             return
         }
         throw AlreadyStayStatusException(ExceptionMessages.ALREADY_STAY_GAME_EXCEPTION)
+    }
+
+    fun getSumOfValues(): Int {
+        val sumOfMainValues = cards.sumOf { it.getValue() }
+        var sumWithOptionValues = sumOfMainValues
+        val aceCardCount =
+            cards.count { it.getWithOptionValue() == (CardValue.ACE.mainValue + CardValue.ACE.optionValue) }
+
+        repeat(aceCardCount){
+            if ((sumWithOptionValues + CardValue.ACE.optionValue) <= CARD_SUM_LIMIT) {
+                sumWithOptionValues += CardValue.ACE.optionValue
+            }
+        }
+        return maxOf(sumOfMainValues,sumWithOptionValues)
     }
 
     companion object {
