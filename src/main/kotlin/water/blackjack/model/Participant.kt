@@ -11,6 +11,8 @@ abstract class Participant {
     protected val cards = mutableSetOf<Card>()
     protected open val gameStopSumBoundary = CARD_SUM_LIMIT
 
+    abstract fun canGetCard() : Boolean
+
     open fun showCards(): Set<Card> {
         return cards.toSet()
     }
@@ -43,6 +45,7 @@ abstract class Participant {
 
     companion object {
         const val START_CARD_RECEIVE_COUNT = 2
+        const val ONE_MORE_CARD_COUNT = 1
         const val CARD_SUM_LIMIT = 21
     }
 }

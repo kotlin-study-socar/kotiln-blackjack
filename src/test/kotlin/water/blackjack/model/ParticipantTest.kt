@@ -25,7 +25,7 @@ class ParticipantTest {
     }
 
     @Test
-    fun `참가자는 hit 에서 stay 로 상태를 한 번 변경할 수 있으며 stay 상태에서 stay로의 변경을 요청한다면 예외가 발생한다`() {
+    fun `참가자는 hit(기본 값) 에서 stay 로 상태를 한 번 변경할 수 있으며 stay 상태에서 stay로의 변경을 요청한다면 예외가 발생한다`() {
         participant.updateToStayStatus()
         assertThrows<AlreadyStayStatusException> {
             participant.updateToStayStatus()
@@ -76,6 +76,10 @@ class ParticipantTest {
                 Card(CardSuit.SPADE,CardValue.ACE),
                 Card(CardSuit.HEART,CardValue.ACE),
                 Card(CardSuit.SPADE,CardValue.NINE)))
+        }
+
+        override fun canGetCard(): Boolean {
+            return true
         }
     }
 }

@@ -15,6 +15,23 @@ class Dealer(
         return cards.toSet()
     }
 
+    override fun canGetCard(): Boolean {
+        if ( getSumOfValues() < gameStopSumBoundary){
+            return true
+        }
+        return false
+    }
+
+    fun getCountOfAddedCards(gameCards: CardsDeck): Int {
+        var count = 0
+        while (canGetCard()){
+            count++
+            cards.addAll(gameCards.offerCards(ONE_MORE_CARD_COUNT))
+        }
+        updateToStayStatus()
+        return count
+    }
+
     companion object {
         const val DEALER_NAME = "딜러"
         const val DEALER_GAME_STOP_BOUNDARY = 17

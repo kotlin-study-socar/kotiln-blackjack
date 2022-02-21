@@ -5,4 +5,5 @@ object ExceptionMessages {
     var DUPLICATE_PLAYER_NAME_MESSAGE = "중복되지 않은 사람 이름을 입력해 주세요."
     var EMPTY_PLAYER_NAME_MESSAGE = "값을 입력해야 합니다."
     var ALREADY_STAY_GAME_EXCEPTION = "이미 스테이 표시를 한 카드입니다."
+    var PLAYER_NOT_FOUND_EXCEPTION = "해당 플레이어를 찾을 수 없습니다."
 }
