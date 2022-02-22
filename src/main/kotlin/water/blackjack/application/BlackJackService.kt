@@ -15,16 +15,16 @@ class BlackJackService(private val playerNames: List<String>) {
 
     fun startGame(): List<ParticipantDto> {
         participants.forEach {it.startAndReceiveTwoCards(deck)}
-        return ParticipantsDto.convertNameAndCards(participants)
+        return ParticipantsDto.convertToParticipantsInfoWithOptionalSum(participants)
     }
 
     fun getPlayersCanHit(): List<ParticipantDto> {
         val players = participants.filter { it.canGetCard() && it !is Dealer }
-        return ParticipantsDto.convertNameAndCards(players)
+        return ParticipantsDto.convertToParticipantsInfoWithOptionalSum(players)
     }
 
     fun getOneCard(name: String): ParticipantDto {
-        return ParticipantDto.convertNameAndCards(findByPlayerName(name).also { it.getOneCard(deck) })
+        return ParticipantDto.convertToParticipantsInfoWithOptionalSum(findByPlayerName(name).also { it.getOneCard(deck) })
     }
 
     fun checkPlayerCanGetCard(name: String) :  Boolean {
@@ -34,6 +34,8 @@ class BlackJackService(private val playerNames: List<String>) {
     fun updatePlayerToStay(name: String) {
         findByPlayerName(name).updateToStayStatus()
     }
+
+    fun getParticipants() = ParticipantsDto.convertToParticipantsInfoWithOptionalSum(participants)
 
     fun countDealerCardUpdated(): Int = dealer.getCountOfAddedCards(deck)
 

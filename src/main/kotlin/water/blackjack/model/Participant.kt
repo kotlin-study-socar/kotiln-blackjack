@@ -43,6 +43,8 @@ abstract class Participant {
         return maxOf(sumOfMainValues,sumWithOptionValues)
     }
 
+    fun getStatus() = gameStatus
+
     companion object {
         const val START_CARD_RECEIVE_COUNT = 2
         const val ONE_MORE_CARD_COUNT = 1
