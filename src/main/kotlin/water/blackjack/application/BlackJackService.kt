@@ -2,8 +2,8 @@ package water.blackjack.application
 
 import water.blackjack.application.dto.ParticipantDto
 import water.blackjack.application.dto.ParticipantsDto
+import water.blackjack.exception.BlackJackException
 import water.blackjack.exception.ExceptionMessages
-import water.blackjack.exception.PlayerNotFoundException
 import water.blackjack.model.CardsDeck
 import water.blackjack.model.Dealer
 import water.blackjack.model.Player
@@ -40,6 +40,6 @@ class BlackJackService(private val playerNames: List<String>) {
     fun countDealerCardUpdated(): Int = dealer.getCountOfAddedCards(deck)
 
     private fun findByPlayerName(name: String): Player {
-        return participants.findLast { it.name == name } as? Player ?: throw PlayerNotFoundException(ExceptionMessages.PLAYER_NOT_FOUND_EXCEPTION)
+        return participants.findLast { it.name == name } as? Player ?: throw BlackJackException(ExceptionMessages.PLAYER_NOT_FOUND_EXCEPTION)
     }
 }

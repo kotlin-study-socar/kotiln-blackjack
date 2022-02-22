@@ -1,6 +1,6 @@
 package water.blackjack.model
 
-import water.blackjack.exception.AlreadyStayStatusException
+import water.blackjack.exception.BlackJackException
 import water.blackjack.exception.ExceptionMessages
 import water.blackjack.model.enums.CardValue
 import water.blackjack.model.enums.GameStatus
@@ -26,7 +26,7 @@ abstract class Participant {
             gameStatus = GameStatus.STAY
             return
         }
-        throw AlreadyStayStatusException(ExceptionMessages.ALREADY_STAY_GAME_EXCEPTION)
+        throw BlackJackException(ExceptionMessages.ALREADY_STAY_STATE_EXCEPTION)
     }
 
     fun getSumOfValues(): Int {

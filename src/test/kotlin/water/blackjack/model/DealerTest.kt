@@ -5,7 +5,8 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.assertThrows
-import water.blackjack.exception.AlreadyStayStatusException
+import water.blackjack.exception.BlackJackException
+import water.blackjack.exception.ExceptionMessages
 
 class DealerTest {
     private val deck = CardsDeck()
@@ -38,8 +39,9 @@ class DealerTest {
     @Test
     fun `딜러는 추가 카드를 뽑는 과정을 거치고 난 뒤 Stay 상태가 된다`() {
         dealer.getCountOfAddedCards(deck)
-        assertThrows<AlreadyStayStatusException> {
+        val exception = assertThrows<BlackJackException> {
             dealer.updateToStayStatus()
         }
+        assertEquals(exception.message, ExceptionMessages.ALREADY_STAY_STATE_EXCEPTION)
     }
 }

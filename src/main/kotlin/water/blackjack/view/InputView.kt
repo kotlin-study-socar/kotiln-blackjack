@@ -1,8 +1,6 @@
 package water.blackjack.view
 
 import water.blackjack.exception.BlackJackException
-import water.blackjack.exception.DuplicatePlayerNameException
-import water.blackjack.exception.EmptyPlayerNameInputException
 import water.blackjack.exception.ExceptionMessages
 
 object InputView {
@@ -30,14 +28,14 @@ object InputView {
 
     private fun validatePlayerNameInputExist(input: String?) : String {
         if (input?.isEmpty() == true) {
-            throw EmptyPlayerNameInputException(ExceptionMessages.EMPTY_PLAYER_NAME_MESSAGE)
+            throw BlackJackException(ExceptionMessages.EMPTY_PLAYER_NAME_MESSAGE)
         }
         return input.toString()
     }
 
     private fun validateDuplicate(names: List<String>) : List<String> {
         if (names.size != names.toSet().size){
-            throw DuplicatePlayerNameException(ExceptionMessages.DUPLICATE_PLAYER_NAME_MESSAGE)
+            throw BlackJackException(ExceptionMessages.DUPLICATE_PLAYER_NAME_MESSAGE)
         }
         return names
     }

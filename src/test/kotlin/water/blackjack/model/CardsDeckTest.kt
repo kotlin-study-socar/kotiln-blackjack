@@ -1,9 +1,10 @@
 package water.blackjack.model
 
-import water.blackjack.exception.OutOfCardException
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
+import water.blackjack.exception.BlackJackException
+import water.blackjack.exception.ExceptionMessages
 
 class CardsDeckTest {
     private val totalCardCount= 52
@@ -13,9 +14,10 @@ class CardsDeckTest {
         val deck = CardsDeck()
         deck.offerCards(totalCardCount)
 
-        assertThrows<OutOfCardException> {
+        val exception = assertThrows<BlackJackException> {
             deck.offerCards(1)
         }
+        assertEquals(exception.message, ExceptionMessages.OUT_OF_CARD_MESSAGE)
     }
 
     @Test
@@ -33,8 +35,9 @@ class CardsDeckTest {
         deck.offerCards(requiredCount)
 
         deck.offerCards(totalCardCount-requiredCount)
-        assertThrows<OutOfCardException> {
+        val exception = assertThrows<BlackJackException> {
             deck.offerCards(1)
         }
+        assertEquals(exception.message, ExceptionMessages.OUT_OF_CARD_MESSAGE)
     }
 }

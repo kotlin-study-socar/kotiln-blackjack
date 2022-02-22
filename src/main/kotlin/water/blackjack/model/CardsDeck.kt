@@ -1,7 +1,7 @@
 package water.blackjack.model
 
+import water.blackjack.exception.BlackJackException
 import water.blackjack.exception.ExceptionMessages
-import water.blackjack.exception.OutOfCardException
 import water.blackjack.model.enums.CardSuit
 import water.blackjack.model.enums.CardValue
 
@@ -12,7 +12,7 @@ class CardsDeck {
 
     fun offerCards(count: Int): Set<Card> {
         if (count > cards.size){
-            throw OutOfCardException(ExceptionMessages.OUT_OF_CARD_MESSAGE)
+            throw BlackJackException(ExceptionMessages.OUT_OF_CARD_MESSAGE)
         }
 
         val chosenCards = mutableSetOf<Card>()
