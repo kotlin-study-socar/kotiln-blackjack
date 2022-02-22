@@ -1,4 +1,4 @@
-package moody.blackjack.domain
+package moody.blackjack.domain.card
 
 class Cards private constructor(private val cards: MutableList<Card>) : MutableList<Card> by cards {
 

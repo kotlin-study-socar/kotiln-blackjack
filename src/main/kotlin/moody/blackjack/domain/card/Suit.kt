@@ -1,8 +1,8 @@
-package moody.blackjack.domain
+package moody.blackjack.domain.card
 
 import java.util.Arrays
 
-enum class Suit(private val suit: String) {
+enum class Suit(val suit: String) {
     SPADE("스페이드"),
     DIAMOND("다이아몬드"),
     HEART("하트"),

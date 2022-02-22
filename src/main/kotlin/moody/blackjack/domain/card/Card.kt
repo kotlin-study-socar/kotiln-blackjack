@@ -1,4 +1,4 @@
-package moody.blackjack.domain
+package moody.blackjack.domain.card
 
 class Card private constructor(suit: String, denomination: String) {
     val suit: Suit

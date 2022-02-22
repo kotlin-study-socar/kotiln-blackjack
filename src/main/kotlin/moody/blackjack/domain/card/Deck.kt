@@ -1,4 +1,4 @@
-package moody.blackjack.domain
+package moody.blackjack.domain.card
 
 class Deck(deckGenerator: DeckGenerator) {
     private val cards: Cards

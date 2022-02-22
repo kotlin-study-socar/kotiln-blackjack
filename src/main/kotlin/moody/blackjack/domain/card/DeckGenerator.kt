@@ -1,4 +1,4 @@
-package moody.blackjack.domain
+package moody.blackjack.domain.card
 
 fun interface DeckGenerator {
     fun generate(): Cards
