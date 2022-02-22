@@ -1,5 +1,6 @@
 package water.blackjack.view
 
+import water.blackjack.application.dto.GameResultStringDto
 import water.blackjack.application.dto.ParticipantDto
 
 object OutputView {
@@ -20,5 +21,9 @@ object OutputView {
     fun printTotalParticipantCardsAndSum(participants: List<ParticipantDto>) {
         participants.forEach { println("${it.name}: ${it.cards.joinToString(",") { it.showName }}" +
                 "- 결과: ${it.sumValue}") }.also { println() }
+    }
+
+    fun printWinLoseResults(totalWinAndLoseResult: List<GameResultStringDto>) {
+        totalWinAndLoseResult.forEach{ println(it.resultMessage) }
     }
 }

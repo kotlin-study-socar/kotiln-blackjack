@@ -17,6 +17,7 @@ dependencies {
 
     testImplementation("io.kotest:kotest-runner-junit5:4.2.0")
     testImplementation("io.kotest:kotest-assertions-core:4.2.0")
+    testImplementation ("org.mockito:mockito-inline:3.11.2")
 }
 
 test {

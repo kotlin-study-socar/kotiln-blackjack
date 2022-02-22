@@ -59,6 +59,27 @@ class ParticipantTest {
         assertEquals(participant.getSumOfValues(),21)
     }
 
+    @Test
+    fun `받은 카드의 합이 21점이 넘었다면 버스트(Bust) 된다`() {
+        participant.addBustCards()
+        assertEquals(participant.isBust(),true)
+        assertEquals(participant.isBlackJack(),false)
+    }
+
+    @Test
+    fun `받은 카드가 모두 두 장이며 두 장의 합이 21이면 블랙잭이 된다`() {
+        participant.addBlackJackCards()
+        assertEquals(participant.isBust(),false)
+        assertEquals(participant.isBlackJack(),true)
+    }
+
+    @Test
+    fun `받은 카드가 두 장을 초과하며 카드의 합이 21이면 블랙잭이 아니다`() {
+        participant.addTwoAceCardsWithCardNine()
+        assertEquals(participant.getSumOfValues(),21)
+        assertEquals(participant.isBlackJack(),false)
+    }
+
     class TestParticipant(override val name: String = "TEST") : Participant(){
         fun addSampleCardsWithAceCardUnderSumLimit() {
             cards.addAll(setOf(
@@ -78,6 +99,21 @@ class ParticipantTest {
                 Card(CardSuit.SPADE,CardValue.ACE),
                 Card(CardSuit.HEART,CardValue.ACE),
                 Card(CardSuit.SPADE,CardValue.NINE)))
+        }
+
+        fun addBustCards(){
+            cards.addAll(setOf(
+                Card(CardSuit.HEART,CardValue.KING),
+                Card(CardSuit.HEART,CardValue.QUEEN),
+                Card(CardSuit.HEART,CardValue.FIVE),
+            ))
+        }
+
+        fun addBlackJackCards() {
+            cards.addAll(setOf(
+                Card(CardSuit.HEART,CardValue.ACE),
+                Card(CardSuit.HEART,CardValue.QUEEN),
+            ))
         }
 
         override fun canGetCard(): Boolean {

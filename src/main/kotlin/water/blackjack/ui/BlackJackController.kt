@@ -16,6 +16,7 @@ class BlackJackController {
             OutputView.printDealerCardAdded()
         }
         OutputView.printTotalParticipantCardsAndSum(jackService.getParticipants())
+        OutputView.printWinLoseResults(jackService.getTotalWinAndLoseResults())
     }
 
     private fun requestPlayersForHitAndStay(players: List<ParticipantDto>) {

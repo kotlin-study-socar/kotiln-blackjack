@@ -1,5 +1,6 @@
 package water.blackjack.application
 
+import water.blackjack.application.dto.GameResultStringDto
 import water.blackjack.application.dto.ParticipantDto
 import water.blackjack.application.dto.ParticipantsDto
 import water.blackjack.exception.BlackJackException
@@ -41,5 +42,14 @@ class BlackJackService(private val playerNames: List<String>) {
 
     private fun findByPlayerName(name: String): Player {
         return participants.findLast { it.name == name } as? Player ?: throw BlackJackException(ExceptionMessages.PLAYER_NOT_FOUND_EXCEPTION)
+    }
+
+    fun getTotalWinAndLoseResults() : List<GameResultStringDto> {
+        val results = mutableListOf<GameResultStringDto>()
+        participants.filter { it !is Dealer }.forEach {
+            results.add(GameResultStringDto.fromPlayer(it.name, dealer.getPlayerGameResult(it as Player)))
+        }
+        results.add(0,GameResultStringDto.fromDealer(dealer.name,dealer.getDealerGameResults()))
+        return results.toList()
     }
 }

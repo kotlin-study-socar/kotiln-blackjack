@@ -45,6 +45,10 @@ abstract class Participant {
 
     fun getStatus() = gameStatus
 
+    fun isBust() = getSumOfValues() > CARD_SUM_LIMIT
+
+    fun isBlackJack() = getSumOfValues() == CARD_SUM_LIMIT && (cards.size == START_CARD_RECEIVE_COUNT)
+
     companion object {
         const val START_CARD_RECEIVE_COUNT = 2
         const val ONE_MORE_CARD_COUNT = 1
