@@ -24,7 +24,7 @@ class ParticipantTest {
     @Test
     fun `참가자는 게임 시작 시 2장을 받는다`() {
         participant.startGame(cardsDeck)
-        assertEquals(participant.showCards().size,2)
+        assertEquals(2, participant.showCards().size)
     }
 
     @Test
@@ -33,7 +33,7 @@ class ParticipantTest {
         val exception = assertThrows<BlackJackException> {
             participant.updateToStay()
         }
-        assertEquals(exception.message,ExceptionMessages.ALREADY_STAY_STATE_EXCEPTION)
+        assertEquals(ExceptionMessages.ALREADY_STAY_STATE_EXCEPTION, exception.message)
     }
     @Test
     fun `ACE 카드가 포함되어있을 때 다른 카드와의 합이 21을 넘지 않으면 11로 계산한 값을 반환한다`() {
@@ -43,7 +43,7 @@ class ParticipantTest {
 
         val kingCardValue = 10
         val aceValue = 11
-        assertEquals(participant.getSumOfValues(),aceValue+kingCardValue)
+        assertEquals(aceValue+kingCardValue, participant.getSumOfValues())
     }
 
     @Test
@@ -55,7 +55,7 @@ class ParticipantTest {
         val cardNineValue = 9
         val aceValue = 1
 
-        assertEquals(participant.getSumOfValues(),aceValue+kingCardValue+cardNineValue)
+        assertEquals(aceValue+kingCardValue+cardNineValue, participant.getSumOfValues())
     }
 
     @Test
@@ -64,7 +64,7 @@ class ParticipantTest {
         Mockito.`when`(cardsDeckMock.offerCards(2)).thenReturn(twoAceCardsWithCardNine)
         participant.startGame(cardsDeckMock)
 
-        assertEquals(participant.getSumOfValues(),21)
+        assertEquals(21, participant.getSumOfValues())
     }
 
     @Test
@@ -72,8 +72,8 @@ class ParticipantTest {
         Mockito.`when`(cardsDeckMock.offerCards(2)).thenReturn(bustCards)
         participant.startGame(cardsDeckMock)
 
-        assertEquals(participant.isBust(),true)
-        assertEquals(participant.isBlackJack(),false)
+        assertEquals(true, participant.isBust())
+        assertEquals(false, participant.isBlackJack())
     }
 
     @Test
@@ -81,8 +81,8 @@ class ParticipantTest {
         Mockito.`when`(cardsDeckMock.offerCards(2)).thenReturn(blackJackCards)
         participant.startGame(cardsDeckMock)
 
-        assertEquals(participant.isBust(),false)
-        assertEquals(participant.isBlackJack(),true)
+        assertEquals(false, participant.isBust())
+        assertEquals(true, participant.isBlackJack())
     }
 
     @Test
@@ -90,9 +90,9 @@ class ParticipantTest {
         Mockito.`when`(cardsDeckMock.offerCards(2)).thenReturn(twoAceCardsWithCardNine)
         participant.startGame(cardsDeckMock)
 
-        assertEquals(participant.getSumOfValues(),21)
-        assertEquals(participant.showCards().size, 3)
-        assertEquals(participant.isBlackJack(),false)
+        assertEquals(21, participant.getSumOfValues())
+        assertEquals(3, participant.showCards().size)
+        assertEquals(false, participant.isBlackJack())
     }
 
     class TestParticipant(override val name: String = "TEST") : Participant(){

@@ -26,8 +26,8 @@ class CardTest {
     @Test
     fun `Ace 카드는 1 또는 11의 값을 가질 수 있다`() {
         val card = Card(CardSuit.CLOVER, CardValue.ACE)
-        Assertions.assertEquals(card.getValue(),1)
-        Assertions.assertEquals(card.getWithOptionValue(),11)
+        Assertions.assertEquals(1, card.getValue())
+        Assertions.assertEquals(11, card.getWithOptionValue())
         Assertions.assertNotEquals(card.getValue(),card.getWithOptionValue())
     }
 
@@ -37,8 +37,8 @@ class CardTest {
 
         cardValuesExceptAceCard.forEach {
             val card = Card(CardSuit.CLOVER,it)
-            Assertions.assertNotEquals(it, CardValue.ACE)
-            Assertions.assertEquals(card.getValue(),card.getWithOptionValue())
+            Assertions.assertNotEquals(CardValue.ACE, it)
+            Assertions.assertEquals(card.getWithOptionValue(), card.getValue())
         }
     }
 }

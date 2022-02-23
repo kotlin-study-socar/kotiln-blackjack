@@ -28,20 +28,20 @@ class DealerTest {
     @Test
     fun `딜러가 hit 상태라면 오픈된 한장의 카드만 반환한다`() {
         dealer.startGame(deck)
-        assertEquals(dealer.showCards().size,1)
+        assertEquals(1, dealer.showCards().size)
     }
 
     @Test
     fun `딜러가 stay 상태라면 모든 카드를 반환한다`() {
         dealer.startGame(deck)
         dealer.updateToStay()
-        assertEquals(dealer.showCards().size,2)
+        assertEquals(2, dealer.showCards().size)
     }
 
     @Test
     fun `딜러는 마지막에 추가로 뽑은 카트의 개수를 반환한다`() {
         val countOfAddedCards = dealer.getCountOfAddedCards(deck)
-        assertEquals(countOfAddedCards,dealer.showCards().size)
+        assertEquals(dealer.showCards().size, countOfAddedCards)
     }
 
     @Test
@@ -50,7 +50,7 @@ class DealerTest {
         val exception = assertThrows<BlackJackException> {
             dealer.updateToStay()
         }
-        assertEquals(exception.message, ExceptionMessages.ALREADY_STAY_STATE_EXCEPTION)
+        assertEquals(ExceptionMessages.ALREADY_STAY_STATE_EXCEPTION, exception.message)
     }
 
     @Test
@@ -59,9 +59,9 @@ class DealerTest {
         player.startGame(cardsDeckMock)
         dealer.startGame(cardsDeckMock)
 
-        assertEquals(player.isBust(),true)
-        assertEquals(dealer.isBust(),true)
-        assertEquals(dealer.getPlayerGameResult(player), GameResult.WIN)
+        assertEquals(true, player.isBust())
+        assertEquals(true, dealer.isBust())
+        assertEquals(GameResult.WIN, dealer.getPlayerGameResult(player))
     }
 
     @Test
@@ -71,9 +71,9 @@ class DealerTest {
         Mockito.`when`(cardsDeckMock.offerCards(2)).thenReturn(normalCardsSum20)
         dealer.startGame(cardsDeckMock)
 
-        assertEquals(player.isBlackJack(),true)
-        assertEquals(dealer.isBlackJack(),false)
-        assertEquals(dealer.getPlayerGameResult(player), GameResult.WIN)
+        assertEquals(true, player.isBlackJack())
+        assertEquals(false, dealer.isBlackJack())
+        assertEquals(GameResult.WIN, dealer.getPlayerGameResult(player))
     }
 
     @Test
@@ -83,9 +83,9 @@ class DealerTest {
         Mockito.`when`(cardsDeckMock.offerCards(2)).thenReturn(normalCardsSum17)
         dealer.startGame(cardsDeckMock)
 
-        assertEquals(player.isBust(),false)
+        assertEquals(false, player.isBust())
         assertTrue(player.getSumOfValues() > dealer.getSumOfValues())
-        assertEquals(dealer.getPlayerGameResult(player), GameResult.WIN)
+        assertEquals(GameResult.WIN, dealer.getPlayerGameResult(player))
     }
 
     @Test
@@ -95,9 +95,9 @@ class DealerTest {
         Mockito.`when`(cardsDeckMock.offerCards(2)).thenReturn(normalCardsSum20)
         dealer.startGame(cardsDeckMock)
 
-        assertEquals(player.isBust(),true)
-        assertEquals(dealer.isBust(),false)
-        assertEquals(dealer.getPlayerGameResult(player), GameResult.LOSE)
+        assertEquals(true, player.isBust())
+        assertEquals(false, dealer.isBust())
+        assertEquals(GameResult.LOSE, dealer.getPlayerGameResult(player))
     }
 
     @Test
@@ -107,9 +107,9 @@ class DealerTest {
         Mockito.`when`(cardsDeckMock.offerCards(2)).thenReturn(blackJackCards)
         dealer.startGame(cardsDeckMock)
 
-        assertEquals(player.isBlackJack(),false)
-        assertEquals(dealer.isBlackJack(),true)
-        assertEquals(dealer.getPlayerGameResult(player), GameResult.LOSE)
+        assertEquals(false, player.isBlackJack())
+        assertEquals(true, dealer.isBlackJack())
+        assertEquals(GameResult.LOSE, dealer.getPlayerGameResult(player))
     }
 
     @Test
@@ -119,9 +119,9 @@ class DealerTest {
         Mockito.`when`(cardsDeckMock.offerCards(2)).thenReturn(normalCardsSum20)
         dealer.startGame(cardsDeckMock)
 
-        assertEquals(dealer.isBust(),false)
+        assertEquals(false, dealer.isBust())
         assertTrue(player.getSumOfValues() < dealer.getSumOfValues())
-        assertEquals(dealer.getPlayerGameResult(player), GameResult.LOSE)
+        assertEquals(GameResult.LOSE, dealer.getPlayerGameResult(player))
     }
 
     @Test
@@ -130,9 +130,9 @@ class DealerTest {
         player.startGame(cardsDeckMock)
         dealer.startGame(cardsDeckMock)
 
-        assertEquals(player.isBlackJack(),true)
-        assertEquals(dealer.isBlackJack(),true)
-        assertEquals(dealer.getPlayerGameResult(player), GameResult.TIE)
+        assertEquals(true, player.isBlackJack())
+        assertEquals(true, dealer.isBlackJack())
+        assertEquals(GameResult.TIE, dealer.getPlayerGameResult(player))
     }
 
     @Test
@@ -141,10 +141,10 @@ class DealerTest {
         player.startGame(cardsDeckMock)
         dealer.startGame(cardsDeckMock)
 
-        assertEquals(player.isBust(),false)
-        assertEquals(dealer.isBust(),false)
-        assertEquals(player.getSumOfValues(),dealer.getSumOfValues())
-        assertEquals(dealer.getPlayerGameResult(player), GameResult.TIE)
+        assertEquals(false, player.isBust())
+        assertEquals(false, dealer.isBust())
+        assertEquals(dealer.getSumOfValues(), player.getSumOfValues())
+        assertEquals(GameResult.TIE, dealer.getPlayerGameResult(player))
     }
 
     companion object {

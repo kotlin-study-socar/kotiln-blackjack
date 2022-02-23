@@ -25,7 +25,7 @@ class CardsDeckTest {
         val deck = CardsDeck()
         val requiredCount = 2
         val offeredCards = deck.offerCards(requiredCount)
-        assertEquals(offeredCards.size, requiredCount)
+        assertEquals(requiredCount, offeredCards.size)
     }
 
     @Test
@@ -38,6 +38,6 @@ class CardsDeckTest {
         val exception = assertThrows<BlackJackException> {
             deck.offerCards(1)
         }
-        assertEquals(exception.message, ExceptionMessages.OUT_OF_CARD_MESSAGE)
+        assertEquals(ExceptionMessages.OUT_OF_CARD_MESSAGE, exception.message)
     }
 }

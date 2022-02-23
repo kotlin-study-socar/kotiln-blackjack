@@ -17,7 +17,7 @@ abstract class Participant {
         return cards
     }
 
-    fun startGame(deck: CardsDeck) {
+    open fun startGame(deck: CardsDeck) {
         cards.addAll(deck.offerCards(START_CARD_RECEIVE_COUNT))
     }
 
