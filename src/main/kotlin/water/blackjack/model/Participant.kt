@@ -13,8 +13,8 @@ abstract class Participant {
 
     abstract fun canGetCard() : Boolean
 
-    open fun showCards(): Set<Card> {
-        return cards.toSet()
+    open fun showCards(): Collection<Card> {
+        return cards
     }
 
     fun startAndReceiveTwoCards(deck: CardsDeck) {

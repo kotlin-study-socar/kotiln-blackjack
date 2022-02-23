@@ -6,7 +6,7 @@ import water.blackjack.model.enums.GameStatus
 
 data class ParticipantDto(
     val name: String,
-    val cards: Set<Card>,
+    val cards: Collection<Card>,
     val sumValue: Int = 0
 ){
     companion object {

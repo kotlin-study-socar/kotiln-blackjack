@@ -10,11 +10,13 @@ class Dealer(
     private val openCard: Card by lazy { cards.random() }
     private val dealerResults = mutableListOf<GameResult>()
 
-    override fun showCards(): Set<Card> {
+    override fun showCards(): Collection<Card> {
+        val closedCard = cards.filter { it == openCard }
         if (gameStatus == GameStatus.HIT){
-            return cards.filter { it == openCard }.toSet()
+            return closedCard
         }
-        return cards.toSet()
+        val openCards = cards.filterNot { it == openCard }
+        return closedCard + openCards
     }
 
     override fun canGetCard(): Boolean {
