@@ -12,7 +12,7 @@ class Dealer(
 
     override fun showCards(): Collection<Card> {
         val closedCard = cards.filter { it == openCard }
-        if (gameStatus == GameStatus.HIT){
+        if (gameStatus == GameStatus.HIT) {
             return closedCard
         }
         val openCards = cards.filterNot { it == openCard }
@@ -20,7 +20,7 @@ class Dealer(
     }
 
     override fun isHit(): Boolean {
-        if ( getSumOfValues() < gameStopSumBoundary){
+        if (getSumOfValues() < gameStopSumBoundary) {
             return true
         }
         return false
@@ -28,7 +28,7 @@ class Dealer(
 
     fun getCountOfAddedCards(gameCards: CardsDeck): Int {
         var count = 0
-        while (isHit()){
+        while (isHit()) {
             count++
             cards.addAll(gameCards.offerCards(ONE_MORE_CARD_COUNT))
         }
@@ -36,11 +36,11 @@ class Dealer(
         return count
     }
 
-    fun getDealerGameResults() : List<GameResult> {
+    fun getDealerGameResults(): List<GameResult> {
         return dealerResults.toList()
     }
 
-    fun getPlayerGameResult(player: Player) : GameResult {
+    fun getPlayerGameResult(player: Player): GameResult {
         getDealerGameResult(player).also {
             dealerResults.add(it)
             return it.getOppositeResult()
@@ -52,11 +52,11 @@ class Dealer(
         val sumOfDealer = getSumOfValues()
 
         // 1. 딜러가 버스트거나 2. 플레이어만 블랙잭이거나 3. 플레이어가 버스트가 아니면서 딜러보다 점수가 높으면 => 딜러가 진다
-        if (isBust() || (player.isBlackJack() && !isBlackJack()) || (!player.isBust() && sumOfPlayer > sumOfDealer)){
+        if (isBust() || (player.isBlackJack() && !isBlackJack()) || (!player.isBust() && sumOfPlayer > sumOfDealer)) {
             return GameResult.LOSE
         }
         // 2. 플레이어만 버스트거나 2. 딜러만 블랙잭이거나 3. 딜러가 플레이어 보다 점수가 높으면 => 딜러가 이긴다
-        if (player.isBust() || (isBlackJack() && !player.isBlackJack()) || sumOfPlayer < sumOfDealer){
+        if (player.isBust() || (isBlackJack() && !player.isBlackJack()) || sumOfPlayer < sumOfDealer) {
             return GameResult.WIN
         }
         // 그 외의 경우 무승부다 => 1. 둘 다 블랙잭이거나 2. 둘 다 버스트가 아니면서 동점이라면 무승부

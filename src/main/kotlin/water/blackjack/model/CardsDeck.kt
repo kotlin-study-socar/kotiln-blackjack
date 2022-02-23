@@ -6,12 +6,10 @@ import water.blackjack.model.enums.CardSuit
 import water.blackjack.model.enums.CardValue
 
 class CardsDeck {
-    private val cards = CardSuit.values().flatMap {
-                                            suit -> CardValue.values().map { value -> Card(suit, value) }
-                                        }.shuffled().toMutableSet()
+    private val cards = CardSuit.values().flatMap { suit -> CardValue.values().map { value -> Card(suit, value) } }.shuffled().toMutableSet()
 
     fun offerCards(count: Int): Set<Card> {
-        if (count > cards.size){
+        if (count > cards.size) {
             throw BlackJackException(ExceptionMessages.OUT_OF_CARD_MESSAGE)
         }
 

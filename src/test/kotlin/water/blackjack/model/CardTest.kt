@@ -8,19 +8,19 @@ import water.blackjack.model.enums.CardValue
 class CardTest {
 
     @Test
-    fun `같은 카드 모양(ex 클로버)과 값(ex King, Queen)을 가지면 동일한 카드로 본다`(){
+    fun `같은 카드 모양(ex 클로버)과 값(ex King, Queen)을 가지면 동일한 카드로 본다`() {
         val card1 = Card(CardSuit.CLOVER, CardValue.KING)
         val card2 = Card(CardSuit.CLOVER, CardValue.KING)
-        Assertions.assertEquals(card1,card2)
+        Assertions.assertEquals(card1, card2)
     }
 
     @Test
-    fun `카드 모양 및 값이 하나라도 다르면 동일한 카드로 보지 않는다`(){
+    fun `카드 모양 및 값이 하나라도 다르면 동일한 카드로 보지 않는다`() {
         val card1 = Card(CardSuit.CLOVER, CardValue.KING)
         val card2 = Card(CardSuit.HEART, CardValue.KING)
         val card3 = Card(CardSuit.CLOVER, CardValue.QUEEN)
-        Assertions.assertNotEquals(card1,card2)
-        Assertions.assertNotEquals(card1,card3)
+        Assertions.assertNotEquals(card1, card2)
+        Assertions.assertNotEquals(card1, card3)
     }
 
     @Test
@@ -28,7 +28,7 @@ class CardTest {
         val card = Card(CardSuit.CLOVER, CardValue.ACE)
         Assertions.assertEquals(1, card.getValue())
         Assertions.assertEquals(11, card.getWithOptionValue())
-        Assertions.assertNotEquals(card.getValue(),card.getWithOptionValue())
+        Assertions.assertNotEquals(card.getValue(), card.getWithOptionValue())
     }
 
     @Test
@@ -36,7 +36,7 @@ class CardTest {
         val cardValuesExceptAceCard = CardValue.values().filterNot { it == CardValue.ACE }
 
         cardValuesExceptAceCard.forEach {
-            val card = Card(CardSuit.CLOVER,it)
+            val card = Card(CardSuit.CLOVER, it)
             Assertions.assertNotEquals(CardValue.ACE, it)
             Assertions.assertEquals(card.getWithOptionValue(), card.getValue())
         }

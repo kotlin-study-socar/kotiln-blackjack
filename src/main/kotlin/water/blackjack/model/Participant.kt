@@ -11,7 +11,7 @@ abstract class Participant {
     protected val cards = mutableSetOf<Card>()
     protected open val gameStopSumBoundary = CARD_SUM_LIMIT
 
-    abstract fun isHit() : Boolean
+    abstract fun isHit(): Boolean
 
     open fun showCards(): Collection<Card> {
         return cards
@@ -22,7 +22,7 @@ abstract class Participant {
     }
 
     fun updateToStay() {
-        if (gameStatus == GameStatus.HIT){
+        if (gameStatus == GameStatus.HIT) {
             gameStatus = GameStatus.STAY
             return
         }
@@ -35,12 +35,12 @@ abstract class Participant {
         val aceCardCount =
             cards.count { it.getWithOptionValue() == (CardValue.ACE.mainValue + CardValue.ACE.optionValue) }
 
-        repeat(aceCardCount){
+        repeat(aceCardCount) {
             if ((sumWithOptionValues + CardValue.ACE.optionValue) <= CARD_SUM_LIMIT) {
                 sumWithOptionValues += CardValue.ACE.optionValue
             }
         }
-        return maxOf(sumOfMainValues,sumWithOptionValues)
+        return maxOf(sumOfMainValues, sumWithOptionValues)
     }
 
     fun getStatus() = gameStatus

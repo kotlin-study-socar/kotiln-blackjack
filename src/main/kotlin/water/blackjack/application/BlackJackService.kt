@@ -15,7 +15,7 @@ class BlackJackService(private val playerNames: List<String>) {
     private val participants = listOf(dealer) + playerNames.map { Player(it) }
 
     fun startGame(): List<ParticipantDto> {
-        participants.forEach {it.startGame(deck)}
+        participants.forEach { it.startGame(deck) }
         return ParticipantsDto.convertToParticipantsInfoWithOptionalSum(participants)
     }
 
@@ -44,12 +44,12 @@ class BlackJackService(private val playerNames: List<String>) {
         return participants.findLast { it.name == name } as? Player ?: throw BlackJackException(ExceptionMessages.PLAYER_NOT_FOUND_EXCEPTION)
     }
 
-    fun getTotalWinAndLoseResults() : List<GameResultStringDto> {
+    fun getTotalWinAndLoseResults(): List<GameResultStringDto> {
         val results = mutableListOf<GameResultStringDto>()
         participants.filter { it !is Dealer }.forEach {
             results.add(GameResultStringDto.fromPlayer(it.name, dealer.getPlayerGameResult(it as Player)))
         }
-        results.add(0,GameResultStringDto.fromDealer(dealer.name,dealer.getDealerGameResults()))
+        results.add(0, GameResultStringDto.fromDealer(dealer.name, dealer.getDealerGameResults()))
         return results.toList()
     }
 }

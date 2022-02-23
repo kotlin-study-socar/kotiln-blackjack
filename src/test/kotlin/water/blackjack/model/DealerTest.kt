@@ -1,9 +1,9 @@
 package water.blackjack.model
 
-import org.junit.jupiter.api.Test
-
-import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import org.mockito.Mockito
 import org.mockito.Mockito.mock
@@ -148,21 +148,25 @@ class DealerTest {
     }
 
     companion object {
-        val bustCards =  setOf(
-            Card(CardSuit.HEART,CardValue.QUEEN),
+        val bustCards = setOf(
+            Card(CardSuit.HEART, CardValue.QUEEN),
             Card(CardSuit.SPADE, CardValue.QUEEN),
-            Card(CardSuit.SPADE, CardValue.FIVE))
+            Card(CardSuit.SPADE, CardValue.FIVE)
+        )
 
         val blackJackCards = setOf(
-            Card(CardSuit.HEART,CardValue.ACE),
-            Card(CardSuit.HEART,CardValue.QUEEN))
+            Card(CardSuit.HEART, CardValue.ACE),
+            Card(CardSuit.HEART, CardValue.QUEEN)
+        )
 
         val normalCardsSum20 = setOf(
-            Card(CardSuit.SPADE,CardValue.QUEEN),
-            Card(CardSuit.HEART,CardValue.QUEEN))
+            Card(CardSuit.SPADE, CardValue.QUEEN),
+            Card(CardSuit.HEART, CardValue.QUEEN)
+        )
 
         val normalCardsSum17 = setOf(
-            Card(CardSuit.HEART,CardValue.QUEEN),
-            Card(CardSuit.HEART,CardValue.SEVEN))
+            Card(CardSuit.HEART, CardValue.QUEEN),
+            Card(CardSuit.HEART, CardValue.SEVEN)
+        )
     }
 }

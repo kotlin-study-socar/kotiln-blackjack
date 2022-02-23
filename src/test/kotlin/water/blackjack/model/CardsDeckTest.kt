@@ -7,7 +7,7 @@ import water.blackjack.exception.BlackJackException
 import water.blackjack.exception.ExceptionMessages
 
 class CardsDeckTest {
-    private val totalCardCount= 52
+    private val totalCardCount = 52
 
     @Test
     fun `52장의 카드를 생성한다`() {
@@ -34,7 +34,7 @@ class CardsDeckTest {
         val requiredCount = 2
         deck.offerCards(requiredCount)
 
-        deck.offerCards(totalCardCount-requiredCount)
+        deck.offerCards(totalCardCount - requiredCount)
         val exception = assertThrows<BlackJackException> {
             deck.offerCards(1)
         }

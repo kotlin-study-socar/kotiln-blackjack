@@ -1,9 +1,8 @@
 package water.blackjack.model
 
-import org.junit.jupiter.api.Test
-
-import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import org.mockito.Mockito
 import water.blackjack.exception.BlackJackException
@@ -43,7 +42,7 @@ class ParticipantTest {
 
         val kingCardValue = 10
         val aceValue = 11
-        assertEquals(aceValue+kingCardValue, participant.getSumOfValues())
+        assertEquals(aceValue + kingCardValue, participant.getSumOfValues())
     }
 
     @Test
@@ -55,7 +54,7 @@ class ParticipantTest {
         val cardNineValue = 9
         val aceValue = 1
 
-        assertEquals(aceValue+kingCardValue+cardNineValue, participant.getSumOfValues())
+        assertEquals(aceValue + kingCardValue + cardNineValue, participant.getSumOfValues())
     }
 
     @Test
@@ -95,7 +94,7 @@ class ParticipantTest {
         assertEquals(false, participant.isBlackJack())
     }
 
-    class TestParticipant(override val name: String = "TEST") : Participant(){
+    class TestParticipant(override val name: String = "TEST") : Participant() {
         override fun isHit(): Boolean {
             return true
         }
@@ -103,25 +102,30 @@ class ParticipantTest {
 
     companion object {
         val cardsWithAceCardUnderSumLimit = setOf(
-                                    Card(CardSuit.SPADE, CardValue.ACE),
-                                    Card(CardSuit.SPADE,CardValue.KING))
+            Card(CardSuit.SPADE, CardValue.ACE),
+            Card(CardSuit.SPADE, CardValue.KING)
+        )
 
         val cardsWithAceCardOverSumLimit = setOf(
-                                    Card(CardSuit.SPADE,CardValue.ACE),
-                                    Card(CardSuit.SPADE,CardValue.KING),
-                                    Card(CardSuit.SPADE,CardValue.NINE))
+            Card(CardSuit.SPADE, CardValue.ACE),
+            Card(CardSuit.SPADE, CardValue.KING),
+            Card(CardSuit.SPADE, CardValue.NINE)
+        )
         val twoAceCardsWithCardNine = setOf(
-                                    Card(CardSuit.SPADE,CardValue.ACE),
-                                    Card(CardSuit.HEART,CardValue.ACE),
-                                    Card(CardSuit.SPADE,CardValue.NINE))
+            Card(CardSuit.SPADE, CardValue.ACE),
+            Card(CardSuit.HEART, CardValue.ACE),
+            Card(CardSuit.SPADE, CardValue.NINE)
+        )
 
         val bustCards = setOf(
-                                    Card(CardSuit.HEART,CardValue.KING),
-                                    Card(CardSuit.HEART,CardValue.QUEEN),
-                                    Card(CardSuit.HEART,CardValue.FIVE))
+            Card(CardSuit.HEART, CardValue.KING),
+            Card(CardSuit.HEART, CardValue.QUEEN),
+            Card(CardSuit.HEART, CardValue.FIVE)
+        )
 
         val blackJackCards = setOf(
-                                    Card(CardSuit.HEART,CardValue.ACE),
-                                    Card(CardSuit.HEART,CardValue.QUEEN))
+            Card(CardSuit.HEART, CardValue.ACE),
+            Card(CardSuit.HEART, CardValue.QUEEN)
+        )
     }
 }

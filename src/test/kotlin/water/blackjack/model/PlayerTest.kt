@@ -50,7 +50,7 @@ class PlayerTest {
 
     @Test
     fun `카드를 받을 수 있는 상태라면 한 장씩 추가로 뽑을 수 있다`() {
-        assertEquals(player.showCards().size,0)
+        assertEquals(player.showCards().size, 0)
         player.offeredOneCard(deck)
         assertEquals(1, player.showCards().size)
     }
@@ -58,10 +58,12 @@ class PlayerTest {
     companion object {
         val blackJackCards = setOf(
             Card(CardSuit.HEART, CardValue.ACE),
-            Card(CardSuit.HEART, CardValue.QUEEN))
+            Card(CardSuit.HEART, CardValue.QUEEN)
+        )
 
         val normalCardsSum20 = setOf(
-            Card(CardSuit.SPADE,CardValue.QUEEN),
-            Card(CardSuit.HEART,CardValue.QUEEN))
+            Card(CardSuit.SPADE, CardValue.QUEEN),
+            Card(CardSuit.HEART, CardValue.QUEEN)
+        )
     }
 }

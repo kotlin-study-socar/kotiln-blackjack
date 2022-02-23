@@ -12,7 +12,7 @@ class BlackJackController {
     fun startGame() {
         OutputView.showParticipantsCardsWhenBegin(jackService.startGame())
         requestPlayersForHitAndStay(jackService.getHitPlayers())
-        repeat(jackService.getCountsOfUpdatedDealerCards()){
+        repeat(jackService.getCountsOfUpdatedDealerCards()) {
             OutputView.showDealerCardIsUpdated()
         }
         OutputView.showTotalParticipantCardsWithSum(jackService.getParticipants())
