@@ -16,16 +16,16 @@ class BlackJackService(private val playerNames: List<String>) {
 
     fun startGame(): List<ParticipantDto> {
         participants.forEach { it.startGame(deck) }
-        return ParticipantsDto.convertToParticipantsInfoWithOptionalSum(participants)
+        return ParticipantsDto.convertParticipantsWithoutSumValue(participants)
     }
 
     fun getHitPlayers(): List<ParticipantDto> {
         val players = participants.filter { it.isHit() && it !is Dealer }
-        return ParticipantsDto.convertToParticipantsInfoWithOptionalSum(players)
+        return ParticipantsDto.convertParticipantsWithoutSumValue(players)
     }
 
     fun offerOneCard(name: String): ParticipantDto {
-        return ParticipantDto.convertToParticipantsInfoWithOptionalSum(findByPlayerName(name).also { it.offeredOneCard(deck) })
+        return ParticipantDto.convertWithoutSumValue(findByPlayerName(name).also { it.offeredOneCard(deck) })
     }
 
     fun isHitPlayer(name: String): Boolean {
@@ -36,7 +36,7 @@ class BlackJackService(private val playerNames: List<String>) {
         findByPlayerName(name).updateToStay()
     }
 
-    fun getParticipants() = ParticipantsDto.convertToParticipantsInfoWithOptionalSum(participants)
+    fun getParticipantsWithSumValue() = ParticipantsDto.convertParticipantsWithSumValue(participants)
 
     fun getCountsOfUpdatedDealerCards(): Int = dealer.getCountOfAddedCards(deck)
 

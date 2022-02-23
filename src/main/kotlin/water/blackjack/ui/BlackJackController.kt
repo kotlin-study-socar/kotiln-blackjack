@@ -15,7 +15,7 @@ class BlackJackController {
         repeat(jackService.getCountsOfUpdatedDealerCards()) {
             OutputView.showDealerCardIsUpdated()
         }
-        OutputView.showTotalParticipantCardsWithSum(jackService.getParticipants())
+        OutputView.showTotalParticipantCardsWithSum(jackService.getParticipantsWithSumValue())
         OutputView.showGameResults(jackService.getTotalWinAndLoseResults())
     }
 
