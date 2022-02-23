@@ -10,7 +10,7 @@ object InputView {
         println(PLAYER_NAME_INPUT_INFO_MESSAGE)
         return try {
             val userInput = validatePlayerNameInputExist(readLine())
-            validateDuplicate(userInput.split(","))
+            validateDuplicatePlayerNames(userInput.split(","))
         } catch (e: BlackJackException){
             println(e.message)
             getPlayerNames()
@@ -33,7 +33,7 @@ object InputView {
         return input.toString()
     }
 
-    private fun validateDuplicate(names: List<String>) : List<String> {
+    private fun validateDuplicatePlayerNames(names: List<String>) : List<String> {
         if (names.size != names.toSet().size){
             throw BlackJackException(ExceptionMessages.DUPLICATE_PLAYER_NAME_MESSAGE)
         }

@@ -11,17 +11,17 @@ abstract class Participant {
     protected val cards = mutableSetOf<Card>()
     protected open val gameStopSumBoundary = CARD_SUM_LIMIT
 
-    abstract fun canGetCard() : Boolean
+    abstract fun isHit() : Boolean
 
     open fun showCards(): Collection<Card> {
         return cards
     }
 
-    fun startAndReceiveTwoCards(deck: CardsDeck) {
+    fun startGame(deck: CardsDeck) {
         cards.addAll(deck.offerCards(START_CARD_RECEIVE_COUNT))
     }
 
-    fun updateToStayStatus() {
+    fun updateToStay() {
         if (gameStatus == GameStatus.HIT){
             gameStatus = GameStatus.STAY
             return

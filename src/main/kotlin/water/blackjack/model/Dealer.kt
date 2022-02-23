@@ -19,7 +19,7 @@ class Dealer(
         return closedCard + openCards
     }
 
-    override fun canGetCard(): Boolean {
+    override fun isHit(): Boolean {
         if ( getSumOfValues() < gameStopSumBoundary){
             return true
         }
@@ -28,11 +28,11 @@ class Dealer(
 
     fun getCountOfAddedCards(gameCards: CardsDeck): Int {
         var count = 0
-        while (canGetCard()){
+        while (isHit()){
             count++
             cards.addAll(gameCards.offerCards(ONE_MORE_CARD_COUNT))
         }
-        updateToStayStatus()
+        updateToStay()
         return count
     }
 

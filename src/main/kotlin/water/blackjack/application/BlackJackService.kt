@@ -15,30 +15,30 @@ class BlackJackService(private val playerNames: List<String>) {
     private val participants = listOf(dealer) + playerNames.map { Player(it) }
 
     fun startGame(): List<ParticipantDto> {
-        participants.forEach {it.startAndReceiveTwoCards(deck)}
+        participants.forEach {it.startGame(deck)}
         return ParticipantsDto.convertToParticipantsInfoWithOptionalSum(participants)
     }
 
-    fun getPlayersCanHit(): List<ParticipantDto> {
-        val players = participants.filter { it.canGetCard() && it !is Dealer }
+    fun getHitPlayers(): List<ParticipantDto> {
+        val players = participants.filter { it.isHit() && it !is Dealer }
         return ParticipantsDto.convertToParticipantsInfoWithOptionalSum(players)
     }
 
-    fun getOneCard(name: String): ParticipantDto {
-        return ParticipantDto.convertToParticipantsInfoWithOptionalSum(findByPlayerName(name).also { it.getOneCard(deck) })
+    fun offerOneCard(name: String): ParticipantDto {
+        return ParticipantDto.convertToParticipantsInfoWithOptionalSum(findByPlayerName(name).also { it.offeredOneCard(deck) })
     }
 
-    fun checkPlayerCanGetCard(name: String) :  Boolean {
-        return findByPlayerName(name).canGetCard()
+    fun isHitPlayer(name: String): Boolean {
+        return findByPlayerName(name).isHit()
     }
 
     fun updatePlayerToStay(name: String) {
-        findByPlayerName(name).updateToStayStatus()
+        findByPlayerName(name).updateToStay()
     }
 
     fun getParticipants() = ParticipantsDto.convertToParticipantsInfoWithOptionalSum(participants)
 
-    fun countDealerCardUpdated(): Int = dealer.getCountOfAddedCards(deck)
+    fun getCountsOfUpdatedDealerCards(): Int = dealer.getCountOfAddedCards(deck)
 
     private fun findByPlayerName(name: String): Player {
         return participants.findLast { it.name == name } as? Player ?: throw BlackJackException(ExceptionMessages.PLAYER_NOT_FOUND_EXCEPTION)

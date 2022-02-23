@@ -27,14 +27,14 @@ class DealerTest {
 
     @Test
     fun `딜러가 hit 상태라면 오픈된 한장의 카드만 반환한다`() {
-        dealer.startAndReceiveTwoCards(deck)
+        dealer.startGame(deck)
         assertEquals(dealer.showCards().size,1)
     }
 
     @Test
     fun `딜러가 stay 상태라면 모든 카드를 반환한다`() {
-        dealer.startAndReceiveTwoCards(deck)
-        dealer.updateToStayStatus()
+        dealer.startGame(deck)
+        dealer.updateToStay()
         assertEquals(dealer.showCards().size,2)
     }
 
@@ -48,7 +48,7 @@ class DealerTest {
     fun `딜러는 추가 카드를 뽑는 과정을 거치고 난 뒤 Stay 상태가 된다`() {
         dealer.getCountOfAddedCards(deck)
         val exception = assertThrows<BlackJackException> {
-            dealer.updateToStayStatus()
+            dealer.updateToStay()
         }
         assertEquals(exception.message, ExceptionMessages.ALREADY_STAY_STATE_EXCEPTION)
     }
@@ -56,8 +56,8 @@ class DealerTest {
     @Test
     fun `딜러와 플레이어가 버스트면 플레이어가 이긴다`() {
         Mockito.`when`(cardsDeckMock.offerCards(2)).thenReturn(bustCards)
-        player.startAndReceiveTwoCards(cardsDeckMock)
-        dealer.startAndReceiveTwoCards(cardsDeckMock)
+        player.startGame(cardsDeckMock)
+        dealer.startGame(cardsDeckMock)
 
         assertEquals(player.isBust(),true)
         assertEquals(dealer.isBust(),true)
@@ -67,9 +67,9 @@ class DealerTest {
     @Test
     fun `플레이어만 블랙잭이면 플레이어가 이긴다`() {
         Mockito.`when`(cardsDeckMock.offerCards(2)).thenReturn(blackJackCards)
-        player.startAndReceiveTwoCards(cardsDeckMock)
+        player.startGame(cardsDeckMock)
         Mockito.`when`(cardsDeckMock.offerCards(2)).thenReturn(normalCardsSum20)
-        dealer.startAndReceiveTwoCards(cardsDeckMock)
+        dealer.startGame(cardsDeckMock)
 
         assertEquals(player.isBlackJack(),true)
         assertEquals(dealer.isBlackJack(),false)
@@ -79,9 +79,9 @@ class DealerTest {
     @Test
     fun `플레이어가 버스트가 아니면서 딜러보다 점수가 높으면 플레이어가 이긴다`() {
         Mockito.`when`(cardsDeckMock.offerCards(2)).thenReturn(normalCardsSum20)
-        player.startAndReceiveTwoCards(cardsDeckMock)
+        player.startGame(cardsDeckMock)
         Mockito.`when`(cardsDeckMock.offerCards(2)).thenReturn(normalCardsSum17)
-        dealer.startAndReceiveTwoCards(cardsDeckMock)
+        dealer.startGame(cardsDeckMock)
 
         assertEquals(player.isBust(),false)
         assertTrue(player.getSumOfValues() > dealer.getSumOfValues())
@@ -91,9 +91,9 @@ class DealerTest {
     @Test
     fun `플레이어만 버스트라면 플레이어가 진다`() {
         Mockito.`when`(cardsDeckMock.offerCards(2)).thenReturn(bustCards)
-        player.startAndReceiveTwoCards(cardsDeckMock)
+        player.startGame(cardsDeckMock)
         Mockito.`when`(cardsDeckMock.offerCards(2)).thenReturn(normalCardsSum20)
-        dealer.startAndReceiveTwoCards(cardsDeckMock)
+        dealer.startGame(cardsDeckMock)
 
         assertEquals(player.isBust(),true)
         assertEquals(dealer.isBust(),false)
@@ -103,9 +103,9 @@ class DealerTest {
     @Test
     fun `딜러만 블랙잭이면 플레이어가 진다`() {
         Mockito.`when`(cardsDeckMock.offerCards(2)).thenReturn(normalCardsSum20)
-        player.startAndReceiveTwoCards(cardsDeckMock)
+        player.startGame(cardsDeckMock)
         Mockito.`when`(cardsDeckMock.offerCards(2)).thenReturn(blackJackCards)
-        dealer.startAndReceiveTwoCards(cardsDeckMock)
+        dealer.startGame(cardsDeckMock)
 
         assertEquals(player.isBlackJack(),false)
         assertEquals(dealer.isBlackJack(),true)
@@ -115,9 +115,9 @@ class DealerTest {
     @Test
     fun `딜러가 버스트가 아니면서 플레이어 보다 점수가 높으면 플레이어가 진다`() {
         Mockito.`when`(cardsDeckMock.offerCards(2)).thenReturn(normalCardsSum17)
-        player.startAndReceiveTwoCards(cardsDeckMock)
+        player.startGame(cardsDeckMock)
         Mockito.`when`(cardsDeckMock.offerCards(2)).thenReturn(normalCardsSum20)
-        dealer.startAndReceiveTwoCards(cardsDeckMock)
+        dealer.startGame(cardsDeckMock)
 
         assertEquals(dealer.isBust(),false)
         assertTrue(player.getSumOfValues() < dealer.getSumOfValues())
@@ -127,8 +127,8 @@ class DealerTest {
     @Test
     fun `둘 다 블랙잭이면 무승부다`() {
         Mockito.`when`(cardsDeckMock.offerCards(2)).thenReturn(blackJackCards)
-        player.startAndReceiveTwoCards(cardsDeckMock)
-        dealer.startAndReceiveTwoCards(cardsDeckMock)
+        player.startGame(cardsDeckMock)
+        dealer.startGame(cardsDeckMock)
 
         assertEquals(player.isBlackJack(),true)
         assertEquals(dealer.isBlackJack(),true)
@@ -138,8 +138,8 @@ class DealerTest {
     @Test
     fun `둘 다 버스트가 아니면서 동점이면 무승부다`() {
         Mockito.`when`(cardsDeckMock.offerCards(2)).thenReturn(normalCardsSum20)
-        player.startAndReceiveTwoCards(cardsDeckMock)
-        dealer.startAndReceiveTwoCards(cardsDeckMock)
+        player.startGame(cardsDeckMock)
+        dealer.startGame(cardsDeckMock)
 
         assertEquals(player.isBust(),false)
         assertEquals(dealer.isBust(),false)

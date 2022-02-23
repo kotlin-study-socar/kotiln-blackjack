@@ -10,13 +10,13 @@ class BlackJackController {
     private val jackService = BlackJackService(playerNames)
 
     fun startGame() {
-        OutputView.printParticipantsNameAndCards(jackService.startGame())
-        requestPlayersForHitAndStay(jackService.getPlayersCanHit())
-        repeat(jackService.countDealerCardUpdated()){
-            OutputView.printDealerCardAdded()
+        OutputView.showParticipantsCardsWhenBegin(jackService.startGame())
+        requestPlayersForHitAndStay(jackService.getHitPlayers())
+        repeat(jackService.getCountsOfUpdatedDealerCards()){
+            OutputView.showDealerCardIsUpdated()
         }
-        OutputView.printTotalParticipantCardsAndSum(jackService.getParticipants())
-        OutputView.printWinLoseResults(jackService.getTotalWinAndLoseResults())
+        OutputView.showTotalParticipantCardsWithSum(jackService.getParticipants())
+        OutputView.showGameResults(jackService.getTotalWinAndLoseResults())
     }
 
     private fun requestPlayersForHitAndStay(players: List<ParticipantDto>) {
@@ -24,8 +24,8 @@ class BlackJackController {
     }
 
     private fun requestPlayerForHitAndStay(playerName: String) {
-        while (jackService.checkPlayerCanGetCard(playerName) && InputView.requestPlayerForOneMoreCard(playerName)) {
-            OutputView.printParticipantCards(jackService.getOneCard(playerName))
+        while (jackService.isHitPlayer(playerName) && InputView.requestPlayerForOneMoreCard(playerName)) {
+            OutputView.showPlayerCards(jackService.offerOneCard(playerName))
         }
         jackService.updatePlayerToStay(playerName)
     }
