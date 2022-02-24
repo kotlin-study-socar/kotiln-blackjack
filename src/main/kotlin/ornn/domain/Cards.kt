@@ -6,12 +6,12 @@ class Cards(private val cards: MutableList<Card>) : MutableList<Card> by cards {
 
         fun getAllGameCards(): Cards {
             val cards = mutableListOf<Card>()
-            Shape.values().forEach { makingCardOneToTen(cards, it) }
+            Shape.values().forEach { makingCardOneToJQK(cards, it) }
             cards.shuffle()
             return Cards(cards)
         }
 
-        private fun makingCardOneToTen(cards: MutableList<Card>, shape: Shape) {
+        private fun makingCardOneToJQK(cards: MutableList<Card>, shape: Shape) {
             for (num in 1..10) {
                 cards.add(Card(shape, num))
             }
