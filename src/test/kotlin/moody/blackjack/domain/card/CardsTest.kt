@@ -1,7 +1,6 @@
 package moody.blackjack.domain.card
 
 import io.kotest.core.spec.style.AnnotationSpec
-import io.kotest.matchers.comparables.shouldBeEqualComparingTo
 import io.kotest.matchers.shouldBe
 
 class CardsTest : AnnotationSpec() {
@@ -17,7 +16,7 @@ class CardsTest : AnnotationSpec() {
         val result = cards.isBlackjack()
 
         //then
-        result shouldBeEqualComparingTo true
+        result shouldBe true
     }
 
     @Test
@@ -32,7 +31,7 @@ class CardsTest : AnnotationSpec() {
         val result = cards.isBust()
 
         //then
-        result shouldBeEqualComparingTo true
+        result shouldBe true
     }
 
     @Test

@@ -1,6 +1,7 @@
 package moody.blackjack.domain.card
 
 import io.kotest.core.spec.style.AnnotationSpec
+import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.shouldBe
 
 class ScoreTest : AnnotationSpec() {
@@ -27,7 +28,7 @@ class ScoreTest : AnnotationSpec() {
         val result = twentyOne.isTwentyOne()
 
         //then
-        result shouldBe true
+        result.shouldBeTrue()
     }
 
     @Test
@@ -39,7 +40,7 @@ class ScoreTest : AnnotationSpec() {
         val result = bustedScore.isBust()
 
         //then
-        result shouldBe true
+        result.shouldBeTrue()
     }
 
     @Test
@@ -52,7 +53,7 @@ class ScoreTest : AnnotationSpec() {
         val result = ten.isBiggerThen(six)
 
         //then
-        result shouldBe true
+        result.shouldBeTrue()
     }
 
     @Test
@@ -65,6 +66,6 @@ class ScoreTest : AnnotationSpec() {
         val result = six.isLessThen(ten)
 
         //then
-        result shouldBe true
+        result.shouldBeTrue()
     }
 }

@@ -3,7 +3,7 @@ package moody.blackjack.domain.card
 class Cards private constructor(private val cards: MutableList<Card>) : MutableList<Card> by cards {
 
     fun isBlackjack(): Boolean {
-        return calculateScore().isBlackjack() && cards.size == MINIMUM_SIZE_FOR_BLACKJACK
+        return calculateScore().isTwentyOne() && cards.size == MINIMUM_SIZE_FOR_BLACKJACK
     }
 
     fun isBust(): Boolean {
