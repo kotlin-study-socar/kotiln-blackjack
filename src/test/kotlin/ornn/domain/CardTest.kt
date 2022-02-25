@@ -32,7 +32,7 @@ class CardTest {
         val cards = Cards(mutableListOf(cardJ, cardQ, cardK, card5))
 
         // when
-        val sum = cards.sumAll()
+        val sum = cards.getScoreSum()
 
         // then
         assertThat(sum).isEqualTo(35)

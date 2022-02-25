@@ -1,5 +1,7 @@
 package ornn.domain
 
+import ornn.res.ConstNumbers
+
 class Cards(private val cards: MutableList<Card>) : MutableList<Card> by cards {
     companion object {
         private val jqkList = listOf('J', 'Q', 'K')
@@ -21,7 +23,16 @@ class Cards(private val cards: MutableList<Card>) : MutableList<Card> by cards {
         }
     }
 
-    fun sumAll(): Int {
-        return sumOf { it.getScoreOfNum() }
+    fun getScoreSum(): Int {
+        var sum = 0
+        forEach { sum += getEffectiveScore(it, sum) }
+        return sum
+    }
+
+    fun getEffectiveScore(card: Card, sum: Int): Int {
+        if (card.isACE() && sum + 11 <= ConstNumbers.SCORE_MAX) {
+            return 11
+        }
+        return card.getScoreOfNum()
     }
 }
