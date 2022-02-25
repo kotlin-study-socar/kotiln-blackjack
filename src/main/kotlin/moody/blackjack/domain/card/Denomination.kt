@@ -3,7 +3,6 @@ package moody.blackjack.domain.card
 import java.util.Arrays
 
 enum class Denomination(val denomination: String, val score: Score) {
-    ACE("A", Score.from(1)),
     TWO("2", Score.from(2)),
     THREE("3", Score.from(3)),
     FOUR("4", Score.from(4)),
@@ -15,7 +14,8 @@ enum class Denomination(val denomination: String, val score: Score) {
     TEN("10", Score.from(10)),
     JACK("J", Score.from(10)),
     QUEEN("Q", Score.from(10)),
-    KING("K", Score.from(10));
+    KING("K", Score.from(10)),
+    ACE("A", Score.from(11));
 
     private fun isMatch(denomination: String): Boolean {
         return this.denomination == denomination
