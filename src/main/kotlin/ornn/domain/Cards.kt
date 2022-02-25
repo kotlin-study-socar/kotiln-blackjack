@@ -4,7 +4,7 @@ class Cards(private val cards: MutableList<Card>) : MutableList<Card> by cards {
     companion object {
         private val jqkList = listOf('J', 'Q', 'K')
 
-        fun getAllGameCards(): Cards {
+        fun getAllOpCards(): Cards {
             val cards = mutableListOf<Card>()
             Shape.values().forEach { makingCardOneToJQK(cards, it) }
             cards.shuffle()

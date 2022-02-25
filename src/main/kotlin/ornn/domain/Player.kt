@@ -9,8 +9,8 @@ abstract class Player(private val name: String, private val cards: Cards) {
         return cards
     }
 
-    fun takeCard(gameCards: Cards) {
-        val card = gameCards.removeLast()
+    fun takeCard(opCards: Cards) {
+        val card = opCards.removeLast()
         cards.add(card)
     }
 

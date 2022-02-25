@@ -5,17 +5,15 @@ import ornn.domain.Users
 
 class UserService(private val users: Users) {
 
-    private fun getOneCard(gameCards: Cards) {
-        users.takeOneCard(gameCards)
+    private fun getOneCard(opCards: Cards) {
+        users.takeOneCard(opCards)
     }
 
-    fun getTwoCards(gameCards: Cards) {
-        repeat(2) { getOneCard(gameCards) }
+    fun getTwoCards(opCards: Cards) {
+        repeat(2) { getOneCard(opCards) }
     }
 
     fun askedToTakeMoreCard(opCards: Cards) {
-        users.forEach {
-            it.askedToTakeMoreCard(opCards)
-        }
+        users.forEach { it.askedToTakeMoreCard(opCards) }
     }
 }
