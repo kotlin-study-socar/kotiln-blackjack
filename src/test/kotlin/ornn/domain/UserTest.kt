@@ -24,7 +24,7 @@ class UserTest {
     fun `유저는_카드덱에서_카드_한_장을_받을_수_있다`() {
         // given
         val user = User("ornn", Cards(mutableListOf()))
-        val opCards = Cards.getAllOpCards()
+        val opCards = Cards.getOpCards()
 
         // when
         user.takeCard(opCards)
