@@ -17,9 +17,7 @@ object OutputService {
 
     fun printDistriButeTwoCards(dealerDto: DealerDto, playersNameDto: PlayersNameDto) {
         println(
-            "\n${dealerDto.name}와 ${
-                playersNameDto.joinToString(", ")
-            } ${Strings.DISTRIBUTE_TWO_CARDS}"
+            "\n${dealerDto.name}와 ${playersNameDto.joinToString(", ")} ${Strings.DISTRIBUTE_TWO_CARDS}"
         )
     }
 
