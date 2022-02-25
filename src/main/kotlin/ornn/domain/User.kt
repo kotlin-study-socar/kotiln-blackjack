@@ -5,7 +5,7 @@ import ornn.service.InputService
 import ornn.service.OutputService
 
 class User(name: String, cards: Cards) : Player(name, cards) {
-    var result: String = "경기전"
+    var result: UserResult = UserResult.BEFORE_GAME
 
     fun askedToTakeMoreCard(opCards: Cards) {
         if (InputService.isUserToTakeMoreCard(getName())) {

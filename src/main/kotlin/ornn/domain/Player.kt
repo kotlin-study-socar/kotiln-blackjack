@@ -15,7 +15,7 @@ abstract class Player(private val name: String, private val cards: Cards) {
     }
 
     fun isCardsSumMoreThanNum(num: Int): Boolean {
-        if (getCards().sumAll() > num) {
+        if (getCards().getScoreSum() > num) {
             return true
         }
         return false

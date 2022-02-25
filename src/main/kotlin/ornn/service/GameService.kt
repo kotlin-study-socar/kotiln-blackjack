@@ -2,6 +2,7 @@ package ornn.service
 
 import ornn.domain.Game
 import ornn.domain.User
+import ornn.domain.UserResult
 import ornn.dto.DealerDto
 import ornn.dto.PlayersDto
 import ornn.dto.PlayersNameDto
@@ -47,8 +48,8 @@ class GameService(private val game: Game) {
     }
 
     private fun checkWhoIsWin(user: User) {
-        val dealerScore = game.dealer.getCards().sumAll()
-        val userScore = user.getCards().sumAll()
+        val dealerScore = game.dealer.getCards().getScoreSum()
+        val userScore = user.getCards().getScoreSum()
 
         if (isScoreMoreThan21(userScore) && isScoreMoreThan21(dealerScore)) {
             draw(user)
@@ -74,17 +75,17 @@ class GameService(private val game: Game) {
     }
 
     private fun userWin(user: User) {
-        user.result = "승리"
+        user.result = UserResult.LOSE
         game.dealer.win++
     }
 
     private fun draw(user: User) {
-        user.result = "무승부"
+        user.result = UserResult.DRAW
         game.dealer.draw++
     }
 
     private fun userLose(user: User) {
-        user.result = "패배"
+        user.result = UserResult.WIN
         game.dealer.lose++
     }
 }
