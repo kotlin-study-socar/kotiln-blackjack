@@ -3,7 +3,7 @@ package ornn.domain
 class Card(private val shape: Shape, private val num: Int) {
 
     fun getScoreOfNum(): Int {
-        return if (checkNumIsJQK()) 10 else num
+        return if (isJQK()) 10 else num
     }
 
     override fun toString(): String {
@@ -14,10 +14,12 @@ class Card(private val shape: Shape, private val num: Int) {
         }
     }
 
-    private fun checkNumIsJQK(): Boolean {
+    private fun isJQK(): Boolean {
         if (num == 'J'.code || num == 'Q'.code || num == 'K'.code) {
             return true
         }
         return false
     }
+
+    fun isACE() = num == 1
 }
