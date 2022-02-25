@@ -9,6 +9,10 @@ class Card private constructor(suit: String, denomination: String) {
         this.denomination = Denomination.from(denomination)
     }
 
+    fun getScore(): Score {
+        return denomination.score
+    }
+
     companion object {
         fun of(suit: String, denomination: String): Card {
             return Card(suit, denomination)
