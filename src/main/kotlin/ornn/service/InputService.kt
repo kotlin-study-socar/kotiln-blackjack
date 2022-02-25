@@ -34,7 +34,7 @@ object InputService {
     }
 
     fun validateInputIsYesOrNo(input: String) {
-        if (input != "n" && input != "y") {
+        if (input != "n" && input != "y" && input != "N" && input != "Y") {
             throw InputIllegalException(Strings.ERROR + Strings.ERROR_NOT_YES_OR_NO_EXCEPTION)
         }
     }
