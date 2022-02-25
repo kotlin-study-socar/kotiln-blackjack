@@ -43,11 +43,11 @@ object OutputService {
 
     fun printAllPlayersWithScore(findAllPlayers: PlayersDto, dealerDto: DealerDto) {
         printPlayer(dealerDto as PlayerDto)
-        println("${Strings.CALCULATE_SUM} ${dealerDto.cards.sumAll()}")
+        println("${Strings.CALCULATE_SUM} ${dealerDto.cards.getScoreSum()}")
 
         findAllPlayers.forEach {
             printPlayer(it)
-            println("${Strings.CALCULATE_SUM} ${it.cards.sumAll()}")
+            println("${Strings.CALCULATE_SUM} ${it.cards.getScoreSum()}")
         }
     }
 
@@ -75,6 +75,6 @@ object OutputService {
     }
 
     private fun printUsersResult(users: Users) {
-        users.forEach { println("${it.getName()}: ${it.result}") }
+        users.forEach { println("${it.getName()}: ${it.result.korean}") }
     }
 }
