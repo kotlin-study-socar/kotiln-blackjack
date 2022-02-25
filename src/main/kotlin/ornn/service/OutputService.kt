@@ -18,25 +18,25 @@ object OutputService {
     fun printDistriButeTwoCards(dealerDto: DealerDto, playersNameDto: PlayersNameDto) {
         println(
             "\n${dealerDto.name}와 ${
-            playersNameDto.joinToString(", ")
+                playersNameDto.joinToString(", ")
             } ${Strings.DISTRIBUTE_TWO_CARDS}"
         )
     }
 
     fun printAllPlayers(findAllPlayers: PlayersDto, dealer: DealerDto) {
-        printPlayer(dealer)
-        println()
-
-        findAllPlayers.forEach {
-            printPlayer(it)
-            println()
-        }
+        printlnPlayer(dealer)
+        findAllPlayers.forEach { printlnPlayer(it) }
         println()
     }
 
-    fun printPlayer(playerDto: PlayerDto) {
+    private fun printPlayer(playerDto: PlayerDto) {
         print("${playerDto.name}카드:")
         printCards(playerDto.cards)
+    }
+
+    fun printlnPlayer(playerDto: PlayerDto) {
+        printPlayer(playerDto)
+        println()
     }
 
     private fun printCards(cards: Cards) {
