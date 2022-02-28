@@ -1,6 +1,7 @@
 package moody.blackjack.domain.user
 
 import io.kotest.core.spec.style.AnnotationSpec
+import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.types.shouldBeTypeOf
 import moody.blackjack.domain.card.Card
@@ -22,8 +23,8 @@ class UserTest : AnnotationSpec() {
         val 하트7 = Card.of("하트", "7")
         val 하트10 = Card.of("하트", "10")
         val 다이아몬드3 = Card.of("다이아몬드", "3")
-        val 클로버Q = Card.of("클로버", "Q")
         val 클로버2 = Card.of("클로버", "2")
+        val 클로버Q = Card.of("클로버", "Q")
     }
 
     @Test
@@ -51,7 +52,7 @@ class UserTest : AnnotationSpec() {
         val result = player.isBlackjack()
 
         //then
-        result shouldBe true
+        result.shouldBeTrue()
     }
 
     @Test
@@ -146,6 +147,6 @@ class UserTest : AnnotationSpec() {
         val result = dealer.isAbleToDraw()
 
         //then
-        result shouldBe true
+        result.shouldBeTrue()
     }
 }
