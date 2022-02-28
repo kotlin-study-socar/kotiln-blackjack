@@ -12,6 +12,7 @@ class UserStateTest : BehaviorSpec({
     given("기존 카드 두장을 받고 나서") {
         val deck = Deck { Cards.from(mutableListOf(다이아몬드3, 클로버Q, 하트10)) }
         var state = Hit(Cards.from(mutableListOf(스페이드5, 하트7)))
+
         `when`("Hit 상태로 다이아몬드3 카드를 받아 카드의 총합이 21 이하면") {
             val hit = state.draw(deck)
             then("Hit 상태로 유지된다.") {
@@ -37,6 +38,7 @@ class UserStateTest : BehaviorSpec({
     given("Stay 상태일 때") {
         val deck = Deck { Cards.from(mutableListOf(다이아몬드3, 클로버Q, 하트10)) }
         val stay = Stay(Cards.from(mutableListOf(스페이드5, 하트7)))
+
         `when`("draw를 시도하면") {
             then("예외를 발생시킨다.") {
                 shouldThrow<IllegalStateException> { stay.draw(deck) }
@@ -53,6 +55,7 @@ class UserStateTest : BehaviorSpec({
     given("Bust 상태일 때") {
         val deck = Deck { Cards.from(mutableListOf(다이아몬드3, 클로버Q, 하트10)) }
         val bust = Bust(Cards.from(mutableListOf(스페이드5, 하트7, 하트10)))
+
         `when`("draw를 시도하면") {
             then("예외를 발생시킨다.") {
                 shouldThrow<IllegalStateException> { bust.draw(deck) }

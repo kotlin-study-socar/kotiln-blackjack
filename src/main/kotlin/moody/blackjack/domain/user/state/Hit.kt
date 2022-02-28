@@ -6,11 +6,9 @@ import moody.blackjack.domain.card.Deck
 class Hit(cards: Cards) : Running(cards) {
 
     override fun draw(deck: Deck): UserState {
-        getCards().add(deck.giveCard())
-        if (getCards().isBust()) {
-            return Bust(getCards())
-        }
-        return Hit(getCards())
+        val cards = getCards()
+        cards.add(deck.giveCard())
+        return if (cards.isBust()) Bust(cards) else Hit(cards)
     }
 
     override fun stay(): UserState {

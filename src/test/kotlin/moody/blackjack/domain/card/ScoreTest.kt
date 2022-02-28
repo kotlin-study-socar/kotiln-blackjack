@@ -68,4 +68,16 @@ class ScoreTest : AnnotationSpec() {
         //then
         result.shouldBeTrue()
     }
+
+    @Test
+    fun `score가 21을 초과했을 때 ace가 있으면 11점 대신 1점으로 변경한다`() {
+        //given
+        val overScore = Score.from(22)
+
+        //when
+        val result = overScore.convertAceScore()
+
+        //then
+        result shouldBe Score.from(12)
+    }
 }

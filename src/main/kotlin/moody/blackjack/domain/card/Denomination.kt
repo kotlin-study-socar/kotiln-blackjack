@@ -21,6 +21,10 @@ enum class Denomination(val denomination: String, val score: Score) {
         return this.denomination == denomination
     }
 
+    fun isAce(): Boolean {
+        return this == ACE
+    }
+
     companion object {
         fun from(denomination: String): Denomination {
             return Arrays.stream(values())

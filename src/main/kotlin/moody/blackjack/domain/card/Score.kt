@@ -18,13 +18,7 @@ class Score private constructor(val value: Int) {
 
     fun isLessThen(score: Score) = this.value < score.value
 
-    companion object {
-        private const val TWENTY_ONE = 21
-
-        fun from(value: Int): Score {
-            return Score(value)
-        }
-    }
+    fun convertAceScore() = from(this.value - ACE_SCORE_DIFFERENCE)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -39,5 +33,14 @@ class Score private constructor(val value: Int) {
 
     override fun hashCode(): Int {
         return value
+    }
+
+    companion object {
+        private const val TWENTY_ONE = 21
+        private const val ACE_SCORE_DIFFERENCE = 10
+
+        fun from(value: Int): Score {
+            return Score(value)
+        }
     }
 }

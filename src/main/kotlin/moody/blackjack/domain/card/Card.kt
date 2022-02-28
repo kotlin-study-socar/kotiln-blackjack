@@ -13,6 +13,8 @@ class Card private constructor(suit: String, denomination: String) {
         return denomination.score
     }
 
+    fun isAce() = denomination.isAce()
+
     companion object {
         fun of(suit: String, denomination: String): Card {
             return Card(suit, denomination)
