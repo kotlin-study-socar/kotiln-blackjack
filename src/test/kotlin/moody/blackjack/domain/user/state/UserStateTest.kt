@@ -70,10 +70,10 @@ class UserStateTest : BehaviorSpec({
     }
 }) {
     companion object {
-        val 스페이드5 = Card.of("스페이드", "5")
-        val 하트7 = Card.of("하트", "7")
-        val 하트10 = Card.of("하트", "10")
-        val 다이아몬드3 = Card.of("다이아몬드", "3")
-        val 클로버Q = Card.of("클로버", "Q")
+        private val 스페이드5 = Card.of("스페이드", "5")
+        private val 하트7 = Card.of("하트", "7")
+        private val 하트10 = Card.of("하트", "10")
+        private val 다이아몬드3 = Card.of("다이아몬드", "3")
+        private val 클로버Q = Card.of("클로버", "Q")
     }
 }

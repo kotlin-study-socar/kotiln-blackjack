@@ -6,11 +6,11 @@ import io.kotest.matchers.shouldBe
 class CardsTest : AnnotationSpec() {
 
     companion object {
-        val 스페이드A = Card.of("스페이드", "A")
-        val 스페이드10 = Card.of("스페이드", "10")
-        val 스페이드7 = Card.of("스페이드", "7")
-        val 하트10 = Card.of("하트", "10")
-        val 클로버2 = Card.of("클로버", "2")
+        private val 스페이드A = Card.of("스페이드", "A")
+        private val 스페이드10 = Card.of("스페이드", "10")
+        private val 스페이드7 = Card.of("스페이드", "7")
+        private val 하트10 = Card.of("하트", "10")
+        private val 클로버2 = Card.of("클로버", "2")
 
     }
 

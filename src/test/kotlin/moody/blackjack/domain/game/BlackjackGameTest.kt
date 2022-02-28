@@ -18,10 +18,10 @@ class BlackjackGameTest : AnnotationSpec() {
         private const val CALL = "y"
         private const val STAY = "n"
 
-        val 스페이드5 = Card.of("스페이드", "5")
-        val 하트7 = Card.of("하트", "7")
-        val 클로버2 = Card.of("클로버", "2")
-        val 무디 = Player("무디")
+        private val 스페이드5 = Card.of("스페이드", "5")
+        private val 하트7 = Card.of("하트", "7")
+        private val 클로버2 = Card.of("클로버", "2")
+        private val 무디 = Player("무디")
     }
 
     @Test

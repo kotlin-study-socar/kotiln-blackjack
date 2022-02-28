@@ -23,13 +23,13 @@ class GameResultTest : AnnotationSpec() {
         private val 다이아몬드3 = Card.of("다이아몬드", "3")
         private val 클로버2 = Card.of("클로버", "2")
         private val 클로버Q = Card.of("클로버", "Q")
-        var deck = Deck { Cards.from(mutableListOf()) }
+        private var deck = Deck { Cards.from(mutableListOf()) }
 
-        val 무디 = Player("무디")
-        val 오른 = Player("오른")
-        val 워터 = Player("워터")
-        val 딜러 = Dealer()
-        val users = Users(listOf(무디, 오른, 워터, 딜러))
+        private val 무디 = Player("무디")
+        private val 오른 = Player("오른")
+        private val 워터 = Player("워터")
+        private val 딜러 = Dealer()
+        private val users = Users(listOf(무디, 오른, 워터, 딜러))
     }
 
     @BeforeEach
