@@ -77,4 +77,8 @@ object OutputService {
     private fun printUsersResult(users: Users) {
         users.forEach { println("${it.getName()}: ${it.result.korean}") }
     }
+
+    fun printCardsSumIsMoreThanScoreMax() {
+        println(Strings.NOTICE_CARDS_SUM_IS_MORE_THAN_SCORE_MAX)
+    }
 }
