@@ -25,11 +25,12 @@ class Cards(private val cards: MutableList<Card>) : MutableList<Card> by cards {
 
     fun getScoreSum(): Int {
         var sum = 0
+        sortByDescending { it.getNum() }
         forEach { sum += getEffectiveScore(it, sum) }
         return sum
     }
 
-    fun getEffectiveScore(card: Card, sum: Int): Int {
+    private fun getEffectiveScore(card: Card, sum: Int): Int {
         if (card.isACE() && sum + 11 <= ConstNumbers.SCORE_MAX) {
             return 11
         }
