@@ -25,13 +25,18 @@ class Cards(private val cards: MutableList<Card>) : MutableList<Card> by cards {
 
     fun getScoreSum(): Int {
         var sum = 0
+        var size = this.size
         sortByDescending { it.getNum() }
-        forEach { sum += getEffectiveScore(it, sum) }
+        forEach {
+            size--
+            sum += getEffectiveScore(it, sum, size)
+        }
+
         return sum
     }
 
-    private fun getEffectiveScore(card: Card, sum: Int): Int {
-        if (card.isACE() && sum + 11 <= ConstNumbers.SCORE_MAX) {
+    private fun getEffectiveScore(card: Card, sum: Int, size: Int): Int {
+        if (card.isACE() && sum + 11 <= ConstNumbers.SCORE_MAX && size == 0) {
             return 11
         }
         return card.getScoreOfNum()

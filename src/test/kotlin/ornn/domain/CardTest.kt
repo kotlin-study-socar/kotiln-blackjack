@@ -62,6 +62,30 @@ class CardTest {
     }
 
     @Test
+    fun `카드덱에_10이_한장_ACE가_2장_있을때_합은_12가된다`() {
+        // given
+        val cards = Cards(mutableListOf(cardSpade10, cardSpadeAce, cardHeartAce))
+
+        // when
+        val sum = cards.getScoreSum()
+
+        // then
+        assertThat(sum).isEqualTo(12)
+    }
+
+    @Test
+    fun `카드덱에_ACE가_4장_있을때_합은_14가된다`() {
+        // given
+        val cards = Cards(mutableListOf(cardHeartAce, cardSpadeAce, cardHeartAce, cardSpadeAce))
+
+        // when
+        val sum = cards.getScoreSum()
+
+        // then
+        assertThat(sum).isEqualTo(14)
+    }
+
+    @Test
     fun `카드덱에_ACE가_1장_10이_1장_있을때_합은_21을_반환한다`() {
         // given
         val cards = Cards(mutableListOf(cardSpadeAce, cardSpade10))
