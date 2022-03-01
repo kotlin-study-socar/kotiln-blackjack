@@ -10,7 +10,7 @@ object InputService {
             validateNullInputException(input)
             input.split(",")
         } catch (e: InputIllegalException) {
-            println(e)
+            println(e.message)
             getUsersName()
         }
     }
@@ -28,7 +28,7 @@ object InputService {
             validateInputIsYesOrNo(input)
             input == "y"
         } catch (e: InputIllegalException) {
-            println(e)
+            println(e.message)
             isUserToTakeMoreCard(name)
         }
     }
