@@ -1,5 +1,6 @@
 package ornn.service
 
+import ornn.domain.Cards
 import ornn.domain.Game
 import ornn.domain.User
 import ornn.domain.UserResult
@@ -25,16 +26,19 @@ class GameService(private val game: Game) {
     }
 
     fun distributeTwoCards() {
+        ifOpCardIsNullRefillOpCards()
         repeat(2) { game.dealer.takeCard(game.opCards) }
         userService.getTwoCards(game.opCards)
     }
 
     fun askToUsersTakeMoreCard() {
+        ifOpCardIsNullRefillOpCards()
         userService.askedToTakeMoreCard(game.opCards)
         println()
     }
 
     fun askDealerToTakeMoreCard() {
+        ifOpCardIsNullRefillOpCards()
         while (!game.dealer.isCardsSumMoreThanNum(ConstNumbers.DEALER_MAX)) {
             game.dealer.takeCard(game.opCards)
             OutputService.printDealerTakeMoreCard()
@@ -50,21 +54,24 @@ class GameService(private val game: Game) {
     private fun checkWhoIsWin(user: User) {
         val dealerScore = game.dealer.getCards().getScoreSum()
         val userScore = user.getCards().getScoreSum()
+        val dealerScoreIsMoreThan21 = isScoreMoreThan21(dealerScore)
+        val userScoreIsMoreThan21 = isScoreMoreThan21(userScore)
 
-        if (isScoreMoreThan21(userScore) && isScoreMoreThan21(dealerScore)) {
+        if (userScoreIsMoreThan21 && dealerScoreIsMoreThan21) {
             draw(user)
-        } else if (isScoreMoreThan21(userScore) && !isScoreMoreThan21(dealerScore)) {
+        } else if (userScoreIsMoreThan21 && !dealerScoreIsMoreThan21) {
             userLose(user)
-        } else if (!isScoreMoreThan21(userScore) && isScoreMoreThan21(dealerScore)) {
+        } else if (!userScoreIsMoreThan21 && dealerScoreIsMoreThan21) {
             userWin(user)
         } else {
-            compareScore(userScore, dealerScore, user)
+            compareScore(dealerScore, user)
         }
     }
 
     private fun isScoreMoreThan21(score: Int) = score > ConstNumbers.SCORE_MAX
 
-    private fun compareScore(userScore: Int, dealerScore: Int, user: User) {
+    private fun compareScore(dealerScore: Int, user: User) {
+        val userScore = user.getCards().getScoreSum()
         if (userScore < dealerScore) {
             userLose(user)
         } else if (userScore > dealerScore) {
@@ -74,7 +81,7 @@ class GameService(private val game: Game) {
         }
     }
 
-    private fun userWin(user: User) {
+    private fun userLose(user: User) {
         user.result = UserResult.LOSE
         game.dealer.win++
     }
@@ -84,8 +91,14 @@ class GameService(private val game: Game) {
         game.dealer.draw++
     }
 
-    private fun userLose(user: User) {
+    private fun userWin(user: User) {
         user.result = UserResult.WIN
         game.dealer.lose++
+    }
+
+    fun ifOpCardIsNullRefillOpCards() {
+        if (game.opCards.isEmpty()) {
+            game.opCards = Cards.getOpCards()
+        }
     }
 }
