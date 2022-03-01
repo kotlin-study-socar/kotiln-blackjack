@@ -48,7 +48,7 @@ class UsersTest : AnnotationSpec() {
         users.initializeCards(deck)
 
         //when
-        val result = users.isThereRunningUser()
+        val result = users.isThereRunningPlayer()
 
         //then
         result.shouldBeTrue()
@@ -64,7 +64,7 @@ class UsersTest : AnnotationSpec() {
         users.initializeCards(deck)
 
         //when
-        val result = users.isThereRunningUser()
+        val result = users.isThereRunningPlayer()
 
         //then
         result.shouldBeFalse()

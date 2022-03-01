@@ -6,7 +6,7 @@ class Users(private val users: List<User>) : List<User> by users {
 
     fun initializeCards(deck: Deck) = forEach { it.drawInitialCards(deck) }
 
-    fun isThereRunningUser() = any { it.isRunning() }
+    fun isThereRunningPlayer() = filter { it.isPlayer() }.any { it.isRunning() }
 
     fun currentPlayer(): User? {
         return filter { it.isPlayer() }.find { it.isRunning() }

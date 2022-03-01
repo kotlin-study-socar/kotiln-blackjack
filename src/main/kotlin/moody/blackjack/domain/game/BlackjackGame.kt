@@ -13,13 +13,14 @@ class BlackjackGame(
         users.initializeCards(deck)
     }
 
-    fun hasRemainingUsers() = users.isThereRunningUser()
+    fun hasRemainingUsers() = users.isThereRunningPlayer()
 
     fun giveCardToPlayer(answer: String) {
         val currentPlayer = currentPlayer()
         when (answer) {
             CALL -> currentPlayer.hit(deck)
             STAY -> currentPlayer.stay()
+            else -> throw IllegalArgumentException("y 또는 n으로 응답해야 합니다.")
         }
     }
 
