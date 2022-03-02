@@ -26,7 +26,7 @@ class DeckTest : AnnotationSpec() {
         val deck = Deck { Cards.from(mutableListOf()) }
 
         // expect
-        val result = shouldThrow<IllegalArgumentException> {
+        shouldThrow<IllegalArgumentException> {
             // when
             deck.giveCard()
         }.message shouldBe "카드뭉치에 카드가 없습니다."
