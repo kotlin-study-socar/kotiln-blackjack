@@ -3,7 +3,7 @@ package moody.blackjack.domain.user
 import moody.blackjack.domain.card.Deck
 import moody.blackjack.domain.user.state.Blackjack
 import moody.blackjack.domain.user.state.Bust
-import moody.blackjack.domain.user.state.FirstTurn
+import moody.blackjack.domain.user.state.Hit
 import moody.blackjack.domain.user.state.Running
 import moody.blackjack.domain.user.state.UserState
 
@@ -16,7 +16,8 @@ abstract class User(val name: String) {
     abstract fun isDealer(): Boolean
 
     fun drawInitialCards(deck: Deck) {
-        state = FirstTurn.generateState(deck)
+        val cards = deck.giveTwoCards()
+        state = if (cards.isBlackjack()) Blackjack(cards) else Hit(cards)
     }
 
     fun hit(deck: Deck) {
