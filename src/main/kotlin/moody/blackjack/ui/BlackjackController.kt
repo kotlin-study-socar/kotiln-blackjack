@@ -29,13 +29,12 @@ class BlackjackController {
         while (blackjackGame.hasRemainingUsers()) {
             val currentPlayer = blackjackGame.currentPlayer()
             giveCardToPlayer(currentPlayer)
-            when {
-                currentPlayer.isBust() -> {
-                    OutputView.printUserCards(currentPlayer)
-                    OutputView.printPlayerBustMessage()
-                }
-                else -> OutputView.printUserCards(currentPlayer)
+            if (currentPlayer.isBust()) {
+                OutputView.printUserCards(currentPlayer)
+                OutputView.printPlayerBustMessage()
+                continue
             }
+            OutputView.printUserCards(currentPlayer)
         }
     }
 
