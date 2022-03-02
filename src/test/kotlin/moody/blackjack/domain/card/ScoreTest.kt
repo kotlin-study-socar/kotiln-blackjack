@@ -8,76 +8,76 @@ class ScoreTest : AnnotationSpec() {
 
     @Test
     fun `Score끼리 plus를 하면 점수 합의 value를 가진 Score 객체가 반한된다`() {
-        //given
+        // given
         val ten = Score.from(10)
         val seven = Score.from(7)
 
-        //when
+        // when
         val result = ten.plus(seven)
 
-        //then
+        // then
         result shouldBe Score.from(17)
     }
 
     @Test
     fun `점수가 21인지 체크한다`() {
-        //given
+        // given
         val twentyOne = Score.from(21)
 
-        //when
+        // when
         val result = twentyOne.isTwentyOne()
 
-        //then
+        // then
         result.shouldBeTrue()
     }
 
     @Test
     fun `점수가 21을 초과했을 경우 bust인지 체크한다`() {
-        //given
+        // given
         val bustedScore = Score.from(22)
 
-        //when
+        // when
         val result = bustedScore.isBust()
 
-        //then
+        // then
         result.shouldBeTrue()
     }
 
     @Test
     fun `Score 객체를 다른 Score와 비교해서 큰지 판단한다 - 메서드 선언하는 객체 기준`() {
-        //given
+        // given
         val ten = Score.from(10)
         val six = Score.from(6)
 
-        //when
+        // when
         val result = ten.isBiggerThen(six)
 
-        //then
+        // then
         result.shouldBeTrue()
     }
 
     @Test
     fun `Score 객체를 다른 Score와 비교해서 작은 지 판단한다 - 메서드 선언하는 객체 기준`() {
-        //given
+        // given
         val ten = Score.from(10)
         val six = Score.from(6)
 
-        //when
+        // when
         val result = six.isLessThen(ten)
 
-        //then
+        // then
         result.shouldBeTrue()
     }
 
     @Test
     fun `score가 21을 초과했을 때 ace가 있으면 11점 대신 1점으로 변경한다`() {
-        //given
+        // given
         val overScore = Score.from(22)
 
-        //when
+        // when
         val result = overScore.convertAceScore()
 
-        //then
+        // then
         result shouldBe Score.from(12)
     }
 }

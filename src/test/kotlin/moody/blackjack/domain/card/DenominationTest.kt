@@ -8,40 +8,40 @@ class DenominationTest : AnnotationSpec() {
 
     @Test
     fun `denomination을 생성한다`() {
-        //given
+        // given
         val denomination = "A"
 
-        //when
+        // when
         val result = Denomination.from(denomination)
 
-        //then
+        // then
         result.name shouldBe "ACE"
         result.denomination shouldBe denomination
     }
 
     @Test
     fun `존재하지 않는 denomination을 생성하려고 하면 예외를 발생시킨다`() {
-        //given
+        // given
         val wrongDenomination = "13"
 
-        //when
+        // when
         val result = shouldThrowAny { Denomination.from(wrongDenomination) }
 
-        //then
+        // then
         result is IllegalArgumentException
         result.message shouldBe "13는 유효하지 않은 숫자입니다."
     }
 
     @Test
     fun `denomination이 A라면 isAce는 true를 반환한다`() {
-        //given
+        // given
         val denomination = "A"
         val ace = Denomination.from(denomination)
 
-        //when
+        // when
         val result = ace.isAce()
 
-        //then
+        // then
         result shouldBe true
     }
 }

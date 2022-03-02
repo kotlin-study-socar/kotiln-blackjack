@@ -24,72 +24,71 @@ class UsersTest : AnnotationSpec() {
 
     @Test
     fun `유저들에게 초기 카드 2장씩 나누어준다`() {
-        //given
+        // given
         val deck = Deck { Cards.from(mutableListOf(다이아몬드3, 클로버Q, 하트7, 하트10)) }
         val 무디 = Player("무디")
         val 크로플 = Player("크로플")
         val users = Users(listOf(무디, 크로플))
 
-        //when
+        // when
         users.initializeCards(deck)
 
-        //then
+        // then
         users[0].getCards() shouldContainAll listOf(다이아몬드3, 클로버Q)
         users[1].getCards() shouldContainAll listOf(하트7, 하트10)
     }
 
     @Test
     fun `유저들 중에 진행(running) 상태인 유저가 있다면 true를 반환한다`() {
-        //given
+        // given
         val deck = Deck { Cards.from(mutableListOf(다이아몬드3, 클로버Q, 스페이드A, 하트10)) }
         val 무디 = Player("무디")
         val 크로플 = Player("크로플")
         val users = Users(listOf(무디, 크로플))
         users.initializeCards(deck)
 
-        //when
+        // when
         val result = users.isThereRunningPlayer()
 
-        //then
+        // then
         result.shouldBeTrue()
     }
 
     @Test
     fun `유저들 중에 진행(running) 상태인 유저가 없다면 false를 반환한다`() {
-        //given
+        // given
         val deck = Deck { Cards.from(mutableListOf(다이아몬드A, 클로버Q, 스페이드A, 하트10)) }
         val 무디 = Player("무디")
         val 크로플 = Player("크로플")
         val users = Users(listOf(무디, 크로플))
         users.initializeCards(deck)
 
-        //when
+        // when
         val result = users.isThereRunningPlayer()
 
-        //then
+        // then
         result.shouldBeFalse()
     }
 
-
     @Test
     fun `유저들 중에 현재 턴인 플레이어를 반환한다`() {
-        //given
+        // given
         val deck = Deck { Cards.from(mutableListOf(클로버2, 클로버Q, 스페이드5, 하트10)) }
         val 무디 = Player("무디")
         val 크로플 = Player("크로플")
         val users = Users(listOf(무디, 크로플))
         users.initializeCards(deck)
 
-        //when
+        // when
         val result = users.currentPlayer()
 
-        //then
+        // then
         result shouldBe 무디
     }
 
     @Test
     fun `유저들 중에 딜러를 제외한 플레이어들을 반환한다`() {
-        //given
+        // given
         val deck = Deck { Cards.from(mutableListOf(클로버2, 클로버Q, 스페이드5, 하트10, 다이아몬드A, 다이아몬드3)) }
         val 무디 = Player("무디")
         val 크로플 = Player("크로플")
@@ -97,16 +96,16 @@ class UsersTest : AnnotationSpec() {
         val users = Users(listOf(무디, 크로플, dealer))
         users.initializeCards(deck)
 
-        //when
+        // when
         val result = users.getPlayers()
 
-        //then
+        // then
         result shouldContainAll listOf(무디, 크로플)
     }
 
     @Test
     fun `유저들 중에 딜러를 반환한다`() {
-        //given
+        // given
         val deck = Deck { Cards.from(mutableListOf(클로버2, 클로버Q, 스페이드5, 하트10, 다이아몬드A, 다이아몬드3)) }
         val 무디 = Player("무디")
         val 크로플 = Player("크로플")
@@ -114,10 +113,10 @@ class UsersTest : AnnotationSpec() {
         val users = Users(listOf(무디, 크로플, dealer))
         users.initializeCards(deck)
 
-        //when
+        // when
         val result = users.getDealer()
 
-        //then
+        // then
         result shouldBe dealer
     }
 }

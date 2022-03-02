@@ -40,13 +40,13 @@ class GameResultTest : AnnotationSpec() {
 
     @Test
     fun `딜러와 플레이어들을 받아 결과를 저장한다`() {
-        //given
+        // given
         val result = GameResult()
 
-        //when
+        // when
         result.addPlayersResult(users.getDealer(), users.getPlayers())
 
-        //then
+        // then
         result.playerResult["무디"] shouldBe WIN
         result.playerResult["오른"] shouldBe LOSE
         result.playerResult["워터"] shouldBe DRAW
@@ -54,40 +54,40 @@ class GameResultTest : AnnotationSpec() {
 
     @Test
     fun `딜러가 승리한 횟수를 계산한다`() {
-        //given
+        // given
         val result = GameResult()
         result.addPlayersResult(users.getDealer(), users.getPlayers())
 
-        //when
+        // when
         val countDealerWin = result.countDealerWin()
 
-        //then
+        // then
         countDealerWin shouldBe 1
     }
 
     @Test
     fun `딜러가 패배한 횟수를 계산한다`() {
-        //given
+        // given
         val result = GameResult()
         result.addPlayersResult(users.getDealer(), users.getPlayers())
 
-        //when
+        // when
         val countDealerLose = result.countDealerLose()
 
-        //then
+        // then
         countDealerLose shouldBe 1
     }
 
     @Test
     fun `딜러가 비긴 횟수를 계산한다`() {
-        //given
+        // given
         val result = GameResult()
         result.addPlayersResult(users.getDealer(), users.getPlayers())
 
-        //when
+        // when
         val countDealerDraw = result.countDealerDraw()
 
-        //then
+        // then
         countDealerDraw shouldBe 1
     }
 }

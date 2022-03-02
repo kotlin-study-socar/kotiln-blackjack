@@ -26,16 +26,16 @@ class BlackjackGameTest : AnnotationSpec() {
 
     @Test
     fun `플레이어가 y 응답을 하면 hit을 실행한다`() {
-        //given
+        // given
         val deck = Deck { Cards.from(mutableListOf(스페이드5, 하트7, 클로버2)) }
         val game = BlackjackGame(deck, Users(listOf(무디)))
         game.initUserCards()
         val answer = CALL
 
-        //when
+        // when
         game.giveCardToPlayer(answer)
 
-        //then
+        // then
         game.currentPlayer() shouldBe 무디
         game.currentPlayer().state.shouldBeTypeOf<Hit>()
         game.currentPlayer().getCards() shouldContainAll listOf(스페이드5, 하트7, 클로버2)
@@ -43,16 +43,16 @@ class BlackjackGameTest : AnnotationSpec() {
 
     @Test
     fun `플레이어가 n 응답을 하면 stay를 실행한다`() {
-        //given
+        // given
         val deck = Deck { Cards.from(mutableListOf(스페이드5, 하트7, 클로버2)) }
         val game = BlackjackGame(deck, Users(listOf(무디)))
         game.initUserCards()
         val answer = STAY
 
-        //when
+        // when
         game.giveCardToPlayer(answer)
 
-        //then
+        // then
         val moody = game.users.getPlayers()[0]
         moody shouldBe 무디
         moody.state.shouldBeTypeOf<Stay>()
