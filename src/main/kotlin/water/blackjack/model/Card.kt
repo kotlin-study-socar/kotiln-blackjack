@@ -7,9 +7,6 @@ class Card(
     val suit: CardSuit,
     val rank: CardValue
 ) {
-    fun getValue() = rank.mainValue
-    fun getWithOptionValue() = rank.mainValue + rank.optionValue
-
     override fun equals(other: Any?): Boolean {
         return (other is Card) && ((other.rank == this.rank) && (other.suit == this.suit))
     }

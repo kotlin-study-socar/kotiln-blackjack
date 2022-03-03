@@ -2,7 +2,6 @@ package water.blackjack.model
 
 import water.blackjack.exception.BlackjackException
 import water.blackjack.exception.ExceptionMessages
-import water.blackjack.model.enums.CardValue
 import water.blackjack.model.enums.GameStatus
 
 abstract class Participant {
@@ -30,15 +29,14 @@ abstract class Participant {
     }
 
     fun getSumOfValues(): Int {
-        val sumOfMainValues = cards.sumOf { it.getValue() }
+        val sumOfMainValues = cards.sumOf { it.rank.getValue() }
         var sumWithOptionValues = sumOfMainValues
-        val aceCardCount =
-            cards.count { it.getWithOptionValue() == (CardValue.ACE.mainValue + CardValue.ACE.optionValue) }
-
-        repeat(aceCardCount) {
-            if ((sumWithOptionValues + CardValue.ACE.optionValue) <= CARD_SUM_LIMIT) {
-                sumWithOptionValues += CardValue.ACE.optionValue
+        val aceCards = cards.filter { it.rank.isAce() }
+        aceCards.forEach {
+            if ((sumWithOptionValues + it.rank.getOptionValue()) <= Participant.CARD_SUM_LIMIT) {
+                sumWithOptionValues += it.rank.getOptionValue()
             }
+            return@forEach
         }
         return maxOf(sumOfMainValues, sumWithOptionValues)
     }

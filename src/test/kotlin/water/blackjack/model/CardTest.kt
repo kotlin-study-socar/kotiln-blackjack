@@ -22,23 +22,4 @@ class CardTest {
         Assertions.assertNotEquals(card1, card2)
         Assertions.assertNotEquals(card1, card3)
     }
-
-    @Test
-    fun `Ace 카드는 1 또는 11의 값을 가질 수 있다`() {
-        val card = Card(CardSuit.CLOVER, CardValue.ACE)
-        Assertions.assertEquals(1, card.getValue())
-        Assertions.assertEquals(11, card.getWithOptionValue())
-        Assertions.assertNotEquals(card.getValue(), card.getWithOptionValue())
-    }
-
-    @Test
-    fun `Ace 외의 카드는 기본 값과 옵션 값을 포함한 값이 항상 동일하다`() {
-        val cardValuesExceptAceCard = CardValue.values().filterNot { it == CardValue.ACE }
-
-        cardValuesExceptAceCard.forEach {
-            val card = Card(CardSuit.CLOVER, it)
-            Assertions.assertNotEquals(CardValue.ACE, it)
-            Assertions.assertEquals(card.getWithOptionValue(), card.getValue())
-        }
-    }
 }
