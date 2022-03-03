@@ -5,6 +5,8 @@ import water.blackjack.exception.ExceptionMessages
 
 object InputView {
     private const val PLAYER_NAME_INPUT_INFO_MESSAGE = "게임에 참여할 사람의 이름을 입력하세요.(쉼표 기준으로 분리)"
+    private const val YES = "y"
+    private const val NO = "n"
 
     fun getPlayerNames(): List<String> {
         println(PLAYER_NAME_INPUT_INFO_MESSAGE)
@@ -20,10 +22,13 @@ object InputView {
     fun requestPlayerForOneMoreCard(playerName: String): Boolean {
         println("${playerName}는 한장의 카드를 더 받겠습니까?(예는 y, 아니오는 n)")
         val input = readLine()
-        if (input == "y") {
-            return true
+        return try {
+            validateContinueResponse(input)
+            input == YES
+        } catch (e: BlackJackException) {
+            println(e.message)
+            requestPlayerForOneMoreCard(playerName)
         }
-        return false
     }
 
     private fun validatePlayerNameInputExist(input: String?): String {
@@ -38,5 +43,11 @@ object InputView {
             throw BlackJackException(ExceptionMessages.DUPLICATE_PLAYER_NAME_MESSAGE)
         }
         return names
+    }
+
+    private fun validateContinueResponse(input: String?) {
+        if (input !in listOf(YES, NO)) {
+            throw BlackJackException(ExceptionMessages.INVALID_YES_OR_NO_INPUT_MESSAGE)
+        }
     }
 }
