@@ -4,10 +4,9 @@ import water.blackjack.model.enums.CardSuit
 import water.blackjack.model.enums.CardValue
 
 class Card(
-    private val suit: CardSuit,
-    private val rank: CardValue
+    val suit: CardSuit,
+    val rank: CardValue
 ) {
-    val showName: String = rank.showName + suit.patternName
 
     override fun equals(other: Any?): Boolean {
         if (other is Card) {
