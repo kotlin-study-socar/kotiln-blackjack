@@ -8,9 +8,9 @@ import water.blackjack.model.enums.CardSuit
 import water.blackjack.model.enums.CardValue
 
 class PlayerTest {
-    val deck = CardsDeck()
+    val deck = Deck()
     lateinit var player: Player
-    val cardsDeckMock = Mockito.mock(CardsDeck::class.java)
+    val cardsDeckMock = Mockito.mock(Deck::class.java)
 
     @BeforeEach
     fun init() {

@@ -1,6 +1,6 @@
 package water.blackjack.view
 
-import water.blackjack.exception.BlackJackException
+import water.blackjack.exception.BlackjackException
 import water.blackjack.exception.ExceptionMessages
 
 object InputView {
@@ -13,7 +13,7 @@ object InputView {
         return try {
             val userInput = validatePlayerNameInputExist(readLine())
             validateDuplicatePlayerNames(userInput.split(","))
-        } catch (e: BlackJackException) {
+        } catch (e: BlackjackException) {
             println(e.message)
             getPlayerNames()
         }
@@ -25,7 +25,7 @@ object InputView {
         return try {
             validateContinueResponse(input)
             input == YES
-        } catch (e: BlackJackException) {
+        } catch (e: BlackjackException) {
             println(e.message)
             requestPlayerForOneMoreCard(playerName)
         }
@@ -33,21 +33,21 @@ object InputView {
 
     private fun validatePlayerNameInputExist(input: String?): String {
         if (input?.isEmpty() == true) {
-            throw BlackJackException(ExceptionMessages.EMPTY_PLAYER_NAME_MESSAGE)
+            throw BlackjackException(ExceptionMessages.EMPTY_PLAYER_NAME_MESSAGE)
         }
         return input.toString()
     }
 
     private fun validateDuplicatePlayerNames(names: List<String>): List<String> {
         if (names.size != names.toSet().size) {
-            throw BlackJackException(ExceptionMessages.DUPLICATE_PLAYER_NAME_MESSAGE)
+            throw BlackjackException(ExceptionMessages.DUPLICATE_PLAYER_NAME_MESSAGE)
         }
         return names
     }
 
     private fun validateContinueResponse(input: String?) {
         if (input !in listOf(YES, NO)) {
-            throw BlackJackException(ExceptionMessages.INVALID_YES_OR_NO_INPUT_MESSAGE)
+            throw BlackjackException(ExceptionMessages.INVALID_YES_OR_NO_INPUT_MESSAGE)
         }
     }
 }

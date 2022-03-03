@@ -1,6 +1,6 @@
 package water.blackjack.model
 
-import water.blackjack.exception.BlackJackException
+import water.blackjack.exception.BlackjackException
 import water.blackjack.exception.ExceptionMessages
 import water.blackjack.model.enums.CardValue
 import water.blackjack.model.enums.GameStatus
@@ -17,7 +17,7 @@ abstract class Participant {
         return cards
     }
 
-    open fun startGame(deck: CardsDeck) {
+    open fun startGame(deck: Deck) {
         cards.addAll(deck.offerCards(START_CARD_RECEIVE_COUNT))
     }
 
@@ -26,7 +26,7 @@ abstract class Participant {
             gameStatus = GameStatus.STAY
             return
         }
-        throw BlackJackException(ExceptionMessages.ALREADY_STAY_STATE_EXCEPTION)
+        throw BlackjackException(ExceptionMessages.ALREADY_STAY_STATE_EXCEPTION)
     }
 
     fun getSumOfValues(): Int {
@@ -42,8 +42,6 @@ abstract class Participant {
         }
         return maxOf(sumOfMainValues, sumWithOptionValues)
     }
-
-    fun getStatus() = gameStatus
 
     fun isBust() = getSumOfValues() > CARD_SUM_LIMIT
 

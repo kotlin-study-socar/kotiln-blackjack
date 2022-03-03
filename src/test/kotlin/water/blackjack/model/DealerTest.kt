@@ -7,17 +7,17 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import org.mockito.Mockito
 import org.mockito.Mockito.mock
-import water.blackjack.exception.BlackJackException
+import water.blackjack.exception.BlackjackException
 import water.blackjack.exception.ExceptionMessages
 import water.blackjack.model.enums.CardSuit
 import water.blackjack.model.enums.CardValue
 import water.blackjack.model.enums.GameResult
 
 class DealerTest {
-    private val deck = CardsDeck()
+    private val deck = Deck()
     lateinit var dealer: Dealer
     lateinit var player: Player
-    private val cardsDeckMock = mock(CardsDeck::class.java)
+    private val cardsDeckMock = mock(Deck::class.java)
 
     @BeforeEach
     fun init() {
@@ -47,7 +47,7 @@ class DealerTest {
     @Test
     fun `딜러는 추가 카드를 뽑는 과정을 거치고 난 뒤 Stay 상태가 된다`() {
         dealer.getCountOfAddedCards(deck)
-        val exception = assertThrows<BlackJackException> {
+        val exception = assertThrows<BlackjackException> {
             dealer.updateToStay()
         }
         assertEquals(ExceptionMessages.ALREADY_STAY_STATE_EXCEPTION, exception.message)

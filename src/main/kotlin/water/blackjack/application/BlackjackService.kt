@@ -3,14 +3,14 @@ package water.blackjack.application
 import water.blackjack.application.dto.GameResultStringDto
 import water.blackjack.application.dto.ParticipantDto
 import water.blackjack.application.dto.ParticipantsDto
-import water.blackjack.exception.BlackJackException
+import water.blackjack.exception.BlackjackException
 import water.blackjack.exception.ExceptionMessages
-import water.blackjack.model.CardsDeck
 import water.blackjack.model.Dealer
+import water.blackjack.model.Deck
 import water.blackjack.model.Player
 
-class BlackJackService(private val playerNames: List<String>) {
-    private val deck = CardsDeck()
+class BlackjackService(private val playerNames: List<String>) {
+    private val deck = Deck()
     private val dealer = Dealer()
     private val participants = listOf(dealer) + playerNames.map { Player(it) }
 
@@ -41,7 +41,7 @@ class BlackJackService(private val playerNames: List<String>) {
     fun getCountsOfUpdatedDealerCards(): Int = dealer.getCountOfAddedCards(deck)
 
     private fun findByPlayerName(name: String): Player {
-        return participants.findLast { it.name == name } as? Player ?: throw BlackJackException(ExceptionMessages.PLAYER_NOT_FOUND_EXCEPTION)
+        return participants.findLast { it.name == name } as? Player ?: throw BlackjackException(ExceptionMessages.PLAYER_NOT_FOUND_EXCEPTION)
     }
 
     fun getTotalWinAndLoseResults(): List<GameResultStringDto> {

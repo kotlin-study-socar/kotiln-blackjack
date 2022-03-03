@@ -26,7 +26,7 @@ class Dealer(
         return false
     }
 
-    fun getCountOfAddedCards(gameCards: CardsDeck): Int {
+    fun getCountOfAddedCards(gameCards: Deck): Int {
         var count = 0
         while (isHit()) {
             count++

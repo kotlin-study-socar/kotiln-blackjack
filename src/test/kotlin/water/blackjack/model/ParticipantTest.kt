@@ -5,15 +5,15 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import org.mockito.Mockito
-import water.blackjack.exception.BlackJackException
+import water.blackjack.exception.BlackjackException
 import water.blackjack.exception.ExceptionMessages
 import water.blackjack.model.enums.CardSuit
 import water.blackjack.model.enums.CardValue
 
 class ParticipantTest {
-    private val cardsDeck = CardsDeck()
+    private val cardsDeck = Deck()
     lateinit var participant: TestParticipant
-    private val cardsDeckMock = Mockito.mock(CardsDeck::class.java)
+    private val cardsDeckMock = Mockito.mock(Deck::class.java)
 
     @BeforeEach
     fun init() {
@@ -29,7 +29,7 @@ class ParticipantTest {
     @Test
     fun `참가자는 hit(기본 값) 에서 stay 로 상태를 한 번 변경할 수 있으며 stay 상태에서 stay로의 변경을 요청한다면 예외가 발생한다`() {
         participant.updateToStay()
-        val exception = assertThrows<BlackJackException> {
+        val exception = assertThrows<BlackjackException> {
             participant.updateToStay()
         }
         assertEquals(ExceptionMessages.ALREADY_STAY_STATE_EXCEPTION, exception.message)
