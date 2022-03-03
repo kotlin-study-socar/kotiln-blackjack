@@ -26,8 +26,6 @@ class Cards private constructor(private val cards: MutableList<Card>) : MutableL
         return totalScore
     }
 
-    private fun hasAce() = any { it.isAce() }
-
     private fun countAce() = count { it.isAce() }
 
     companion object {
