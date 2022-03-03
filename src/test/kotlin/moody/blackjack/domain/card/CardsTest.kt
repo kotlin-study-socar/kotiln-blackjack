@@ -10,6 +10,9 @@ class CardsTest : AnnotationSpec() {
         private val 스페이드10 = Card.of("스페이드", "10")
         private val 스페이드7 = Card.of("스페이드", "7")
         private val 하트10 = Card.of("하트", "10")
+        private val 하트A = Card.of("하트", "A")
+        private val 다이아몬드A = Card.of("다이아몬드", "A")
+        private val 클로버A = Card.of("클로버", "A")
         private val 클로버2 = Card.of("클로버", "2")
     }
 
@@ -59,5 +62,17 @@ class CardsTest : AnnotationSpec() {
 
         // then
         result shouldBe Score.from(21)
+    }
+
+    @Test
+    fun `cards에 ACE가 2장 이상일 때 bust가 될 점수라면 여분의 ACE들을 1점으로 계산해서 총합을 구한다`() {
+        // given
+        val cards = Cards.from(mutableListOf(스페이드A, 다이아몬드A, 하트A, 클로버A))
+
+        // when
+        val result = cards.calculateScore()
+
+        // then
+        result.value shouldBe 14
     }
 }

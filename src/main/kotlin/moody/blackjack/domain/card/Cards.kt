@@ -15,19 +15,20 @@ class Cards private constructor(private val cards: MutableList<Card>) : MutableL
     }
 
     fun calculateScore(): Score {
-        val totalScore = Score.from(
-            cards.stream()
-                .mapToInt { it.getScore().value }
-                .sum()
-        )
-
-        return when {
-            hasAce() && totalScore.isBust() -> totalScore.convertAceScore()
-            else -> totalScore
+        var totalScore = Score.from(cards.sumOf { it.getScore().value })
+        var count = countAce()
+        while (count-- > 0) {
+            if (!totalScore.isBust()) {
+                break
+            }
+            totalScore = totalScore.convertAceScore()
         }
+        return totalScore
     }
 
     private fun hasAce() = any { it.isAce() }
+
+    private fun countAce() = count { it.isAce() }
 
     companion object {
         private const val MINIMUM_SIZE_FOR_BLACKJACK = 2
