@@ -5,7 +5,6 @@ import water.blackjack.model.enums.GameStatus
 
 class Dealer(
     override val name: String = DEALER_NAME,
-    override val gameStopSumBoundary: Int = DEALER_GAME_STOP_BOUNDARY
 ) : Participant() {
     private val openCard: Card by lazy { cards.random() }
     private val dealerResults = mutableListOf<GameResult>()
@@ -20,10 +19,8 @@ class Dealer(
     }
 
     override fun isHit(): Boolean {
-        if (getSumOfValues() < gameStopSumBoundary) {
-            return true
-        }
-        return false
+        val gameStopSumBoundary = DEALER_GAME_STOP_BOUNDARY
+        return getSumOfValues() < gameStopSumBoundary
     }
 
     fun getCountOfAddedCards(gameCards: Deck): Int {

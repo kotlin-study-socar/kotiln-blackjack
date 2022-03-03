@@ -11,7 +11,7 @@ class Player(override val name: String) : Participant() {
     }
 
     override fun isHit(): Boolean {
-        return (getSumOfValues() < gameStopSumBoundary) && (gameStatus == GameStatus.HIT)
+        return (getSumOfValues() < CARD_SUM_LIMIT) && (gameStatus == GameStatus.HIT)
     }
 
     fun offeredOneCard(gameCards: Deck) {

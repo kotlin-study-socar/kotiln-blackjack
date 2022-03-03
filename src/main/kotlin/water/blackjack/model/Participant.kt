@@ -8,7 +8,6 @@ abstract class Participant {
     abstract val name: String
     protected var gameStatus = GameStatus.HIT
     protected val cards = mutableSetOf<Card>()
-    protected open val gameStopSumBoundary = CARD_SUM_LIMIT
 
     abstract fun isHit(): Boolean
 
