@@ -1,21 +1,18 @@
 package water.blackjack.model
 
 import water.blackjack.model.enums.GameResult
-import water.blackjack.model.enums.GameStatus
 
 class Dealer(
     override val name: String = DEALER_NAME,
 ) : Participant() {
-    private val openCard: Card by lazy { cards.random() }
+    private val openCard: Card by lazy { cards.iterator().next() }
     private val dealerResults = mutableListOf<GameResult>()
 
-    override fun showCards(): Collection<Card> {
-        val closedCard = cards.filter { it == openCard }
-        if (gameStatus == GameStatus.HIT) {
-            return closedCard
+    override fun showCards(): Set<Card> {
+        if (gameStatus.isHitStatus()) {
+            return hashSetOf(openCard)
         }
-        val openCards = cards.filterNot { it == openCard }
-        return closedCard + openCards
+        return cards
     }
 
     override fun isHit(): Boolean {

@@ -1,7 +1,5 @@
 package water.blackjack.model
 
-import water.blackjack.exception.BlackjackException
-import water.blackjack.exception.ExceptionMessages
 import water.blackjack.model.enums.GameStatus
 
 abstract class Participant {
@@ -20,11 +18,7 @@ abstract class Participant {
     }
 
     fun updateToStay() {
-        if (gameStatus == GameStatus.HIT) {
-            gameStatus = GameStatus.STAY
-            return
-        }
-        throw BlackjackException(ExceptionMessages.ALREADY_STAY_STATE_EXCEPTION)
+        gameStatus = gameStatus.updateStatus()
     }
 
     fun getSumOfValues(): Int {

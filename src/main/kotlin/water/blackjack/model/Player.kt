@@ -1,7 +1,5 @@
 package water.blackjack.model
 
-import water.blackjack.model.enums.GameStatus
-
 class Player(override val name: String) : Participant() {
     override fun startGame(deck: Deck) {
         super.startGame(deck)
@@ -11,7 +9,7 @@ class Player(override val name: String) : Participant() {
     }
 
     override fun isHit(): Boolean {
-        return (getSumOfValues() < CARD_SUM_LIMIT) && (gameStatus == GameStatus.HIT)
+        return (getSumOfValues() < CARD_SUM_LIMIT) && (gameStatus.isHitStatus())
     }
 
     fun offeredOneCard(gameCards: Deck) {
