@@ -7,16 +7,12 @@ class Card(
     val suit: CardSuit,
     val rank: CardValue
 ) {
+    fun getValue() = rank.mainValue
+    fun getWithOptionValue() = rank.mainValue + rank.optionValue
 
     override fun equals(other: Any?): Boolean {
-        if (other is Card) {
-            return (other.rank == this.rank && other.suit == this.suit)
-        }
-        return false
+        return (other is Card) && ((other.rank == this.rank) && (other.suit == this.suit))
     }
 
     override fun hashCode() = 31 * suit.hashCode() + rank.hashCode()
-
-    fun getValue() = rank.mainValue
-    fun getWithOptionValue() = rank.mainValue + rank.optionValue
 }
