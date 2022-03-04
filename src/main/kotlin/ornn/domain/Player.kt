@@ -9,19 +9,14 @@ abstract class Player(private val name: String, private var cards: Cards) {
         return cards
     }
 
-    fun setCards(cards: Cards) {
+    fun setCardsForTest(cards: Cards) {
         this.cards = cards
     }
 
-    fun takeCard(opCards: Cards) {
-        val card = opCards.removeLast()
+    fun takeCard(deck: Cards) {
+        val card = deck.removeLast()
         cards.add(card)
     }
 
-    fun isCardsSumMoreThanNum(num: Int): Boolean {
-        if (getCards().getScoreSum() > num) {
-            return true
-        }
-        return false
-    }
+    fun isBiggerScoreThan(num: Int) = cards.getScoreSum() > num
 }

@@ -3,22 +3,20 @@ package ornn.domain
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import ornn.res.ConstNumbers
+import ornn.resource.MaxNumber
 
 class UserTest {
 
-    companion object {
-        private lateinit var user: User
-        private lateinit var opCards: Cards
-        private val spadeAce = Card(Shape.SPADE, 1)
-        private val spade4 = Card(Shape.SPADE, 4)
-        private val spade7 = Card(Shape.SPADE, 7)
-    }
+    private lateinit var user: User
+    private lateinit var deck: Cards
+    private val spadeAce = Card(Shape.SPADE, 1)
+    private val spade4 = Card(Shape.SPADE, 4)
+    private val spade7 = Card(Shape.SPADE, 7)
 
     @BeforeEach
     fun init() {
         user = User("ornn", Cards(mutableListOf()))
-        opCards = Cards.getOpCards()
+        deck = Cards.getDeck()
     }
 
     @Test
@@ -39,7 +37,7 @@ class UserTest {
     @Test
     fun `유저는_카드덱에서_카드_한_장을_받을_수_있다`() {
         // when
-        user.takeCard(opCards)
+        user.takeCard(deck)
 
         // then
         assertThat(user.getCards().size).isEqualTo(1)
@@ -48,10 +46,10 @@ class UserTest {
     @Test
     fun `유저가_1과_4카드를_받은_상태에서_7을_추가적으로_받았을때_합은_12로_계산되어_더_카드를_받을_수_있다`() {
         // given
-        user.setCards(Cards(mutableListOf(spadeAce, spade4, spade7)))
+        user.setCardsForTest(Cards(mutableListOf(spadeAce, spade4, spade7)))
 
         // when
-        val canTakeMore = user.getCards().getScoreSum() <= ConstNumbers.SCORE_MAX
+        val canTakeMore = user.getCards().getScoreSum() <= MaxNumber.SCORE_MAX
 
         // then
         assertThat(canTakeMore).isEqualTo(true)

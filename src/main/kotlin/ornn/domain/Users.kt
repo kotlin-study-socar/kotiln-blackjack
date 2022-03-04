@@ -8,7 +8,7 @@ class Users(private val players: List<User>) : List<User> by players {
         }
     }
 
-    fun takeOneCard(opCards: Cards) {
-        forEach { it.takeCard(opCards) }
+    fun takeOneCard(deck: Cards) {
+        forEach { it.takeCard(deck) }
     }
 }
