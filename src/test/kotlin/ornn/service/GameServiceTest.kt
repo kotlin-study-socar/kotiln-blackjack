@@ -28,13 +28,13 @@ class GameServiceTest {
     @Test
     fun `게임_운영카드가_모두_소진되면_새로운_카드덱을_발급한다`() {
         // given
-        game.opCards = Cards(mutableListOf())
+        game.deck = Cards(mutableListOf())
 
         // when
-        gameService.ifOpCardIsNullRefillOpCards()
+        gameService.ifOpCardIsNullRefilldeck()
 
         // then
-        assertThat(game.opCards.size).isEqualTo(52)
+        assertThat(game.deck.size).isEqualTo(52)
     }
 
     @Test
@@ -47,7 +47,7 @@ class GameServiceTest {
         assertThat(game.users).allSatisfy {
             assertThat(it.getCards().size).isEqualTo(2)
         }
-        assertThat(game.opCards.size).isEqualTo(52 - 4 * 2)
+        assertThat(game.deck.size).isEqualTo(52 - 4 * 2)
     }
 
     @Test
@@ -57,10 +57,10 @@ class GameServiceTest {
         val user1Cards = mutableListOf(spadeAce, spade10)
         val user2Cards = mutableListOf(spade10, spade10)
         val user3Cards = mutableListOf(spade10, spade9)
-        game.dealer.setCards(Cards(dealerCards))
-        game.users[0].setCards(Cards(user1Cards))
-        game.users[1].setCards(Cards(user2Cards))
-        game.users[2].setCards(Cards(user3Cards))
+        game.dealer.setCardsForTest(Cards(dealerCards))
+        game.users[0].setCardsForTest(Cards(user1Cards))
+        game.users[1].setCardsForTest(Cards(user2Cards))
+        game.users[2].setCardsForTest(Cards(user3Cards))
 
         // when
         gameService.updateResult()
@@ -81,10 +81,10 @@ class GameServiceTest {
         val user1Cards = mutableListOf(spade10, spade10, spade2)
         val user2Cards = mutableListOf(spadeAce, spade10)
         val user3Cards = mutableListOf(spade10, spade10)
-        game.dealer.setCards(Cards(dealerCards))
-        game.users[0].setCards(Cards(user1Cards))
-        game.users[1].setCards(Cards(user2Cards))
-        game.users[2].setCards(Cards(user3Cards))
+        game.dealer.setCardsForTest(Cards(dealerCards))
+        game.users[0].setCardsForTest(Cards(user1Cards))
+        game.users[1].setCardsForTest(Cards(user2Cards))
+        game.users[2].setCardsForTest(Cards(user3Cards))
 
         // when
         gameService.updateResult()

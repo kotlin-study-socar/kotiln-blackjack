@@ -5,9 +5,11 @@ import ornn.domain.Game
 import ornn.domain.User
 import ornn.domain.UserResult
 import ornn.dto.DealerDto
-import ornn.dto.PlayersDto
+import ornn.dto.GameDto
 import ornn.dto.PlayersNameDto
-import ornn.res.ConstNumbers
+import ornn.dto.UsersDto
+import ornn.resource.MaxNumber
+import ornn.ui.OutputView
 
 class GameService(private val game: Game) {
 
@@ -17,8 +19,12 @@ class GameService(private val game: Game) {
         return DealerDto.fromDealer(game.dealer)
     }
 
-    fun findUsers(): PlayersDto {
-        return PlayersDto.fromPlayers(game.users)
+    fun findUsers(): UsersDto {
+        return UsersDto.fromUsers(game.users)
+    }
+
+    fun findGame(): GameDto {
+        return GameDto.fromGame(game)
     }
 
     fun findUsersName(): PlayersNameDto {
@@ -26,24 +32,24 @@ class GameService(private val game: Game) {
     }
 
     fun distributeTwoCards() {
-        ifOpCardIsNullRefillOpCards()
-        repeat(2) { game.dealer.takeCard(game.opCards) }
-        userService.getTwoCards(game.opCards)
+        ifOpCardIsNullRefilldeck()
+        repeat(2) { game.dealer.takeCard(game.deck) }
+        userService.getTwoCards(game.deck)
     }
 
     fun askToUsersTakeMoreCard() {
-        ifOpCardIsNullRefillOpCards()
-        userService.askedToTakeMoreCard(game.opCards)
+        ifOpCardIsNullRefilldeck()
+        userService.askUsersToTakeMoreCard(game.deck)
         println()
     }
 
     fun askDealerToTakeMoreCard() {
-        ifOpCardIsNullRefillOpCards()
-        while (!game.dealer.isCardsSumMoreThanNum(ConstNumbers.DEALER_MAX)) {
-            game.dealer.takeCard(game.opCards)
-            OutputService.printDealerTakeMoreCard()
+        ifOpCardIsNullRefilldeck()
+        while (!game.dealer.isBiggerScoreThan(MaxNumber.DEALER_MAX)) {
+            game.dealer.takeCard(game.deck)
+            OutputView.printDealerTakeMoreCard()
         }
-        OutputService.printDealerNotTakeMoreCard()
+        OutputView.printDealerNotTakeMoreCard()
         println()
     }
 
@@ -68,7 +74,7 @@ class GameService(private val game: Game) {
         }
     }
 
-    private fun isScoreMoreThan21(score: Int) = score > ConstNumbers.SCORE_MAX
+    private fun isScoreMoreThan21(score: Int) = score > MaxNumber.SCORE_MAX
 
     private fun compareScore(dealerScore: Int, user: User) {
         val userScore = user.getCards().getScoreSum()
@@ -96,9 +102,9 @@ class GameService(private val game: Game) {
         game.dealer.lose++
     }
 
-    fun ifOpCardIsNullRefillOpCards() {
-        if (game.opCards.isEmpty()) {
-            game.opCards = Cards.getOpCards()
+    fun ifOpCardIsNullRefilldeck() {
+        if (game.deck.isEmpty()) {
+            game.deck = Cards.getDeck()
         }
     }
 }
