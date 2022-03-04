@@ -3,6 +3,8 @@ package ornn.service
 import io.kotest.core.spec.style.BehaviorSpec
 import org.junit.jupiter.api.assertThrows
 import ornn.exception.InputIllegalException
+import ornn.exception.InputIllegalException.Companion.validateInputIsYesOrNo
+import ornn.exception.InputIllegalException.Companion.validateNullInputException
 
 class InputServiceTest : BehaviorSpec({
     given("플레이어 이름을 입력 받았을 때") {
@@ -10,7 +12,7 @@ class InputServiceTest : BehaviorSpec({
             val input = " "
             then("에러가 발생해야 한다.") {
                 assertThrows<InputIllegalException> {
-                    InputService.validateNullInputException(input)
+                    validateNullInputException(input)
                 }
             }
         }
@@ -21,7 +23,7 @@ class InputServiceTest : BehaviorSpec({
             val input = "K"
             then("에러가 발생해야한다.") {
                 assertThrows<InputIllegalException> {
-                    InputService.validateInputIsYesOrNo(input)
+                    validateInputIsYesOrNo(input)
                 }
             }
         }
