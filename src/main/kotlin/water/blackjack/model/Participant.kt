@@ -34,6 +34,10 @@ abstract class Participant {
         return maxOf(sumOfMainValues, sumWithOptionValues)
     }
 
+    fun offeredOneCard(deck: Deck) {
+        cards.addAll(deck.offerCards(ONE_MORE_CARD_COUNT))
+    }
+
     fun isBust() = getSumOfValues() > CARD_SUM_LIMIT
 
     fun isBlackJack() = getSumOfValues() == CARD_SUM_LIMIT && (cards.size == START_CARD_RECEIVE_COUNT)

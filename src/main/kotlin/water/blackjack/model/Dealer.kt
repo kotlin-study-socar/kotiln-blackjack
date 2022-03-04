@@ -20,11 +20,11 @@ class Dealer(
         return getSumOfValues() < gameStopSumBoundary
     }
 
-    fun getCountOfAddedCards(gameCards: Deck): Int {
+    fun getCountOfAddedCards(deck: Deck): Int {
         var count = 0
         while (isHit()) {
             count++
-            cards.addAll(gameCards.offerCards(ONE_MORE_CARD_COUNT))
+            offeredOneCard(deck)
         }
         updateToStay()
         return count
