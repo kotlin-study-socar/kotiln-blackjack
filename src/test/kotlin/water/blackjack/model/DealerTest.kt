@@ -61,7 +61,7 @@ class DealerTest {
     }
 
     @Test
-    fun `딜러와 플레이어 둘 다 버스트면 플레이어가 이긴다`() {
+    fun `딜러가 버스트라면 플레이어가 버스트여도 플레이어가 이긴다`() {
         // given
         val deckMock = DeckMockBuilder.buildCardsWithParam(bustCloverCards + bustDiamondCards)
         player.startGame(deckMock)
@@ -74,73 +74,6 @@ class DealerTest {
         assertEquals(true, player.isBust())
         assertEquals(true, dealer.isBust())
         assertEquals(GameResult.WIN, playerGameResult)
-    }
-
-    @Test
-    fun `플레이어가 블랙잭이고 딜러가 블랙잭이 아닌 일반 점수라면 플레이어가 이긴다`() {
-        // given
-        player.startGame(DeckMockBuilder.buildCardsWithParam(blackJackHeartCards))
-        dealer.startGame(DeckMockBuilder.buildCardsWithParam(normalCardsSpadeSum20))
-        // when
-        val playerGameResult = dealer.getPlayerGameResult(player)
-        // then
-        assertEquals(true, player.isBlackJack())
-        assertEquals(false, dealer.isBlackJack())
-        assertEquals(GameResult.WIN, playerGameResult)
-    }
-
-    @Test
-    fun `플레이어와 딜러가 둘 다 일반 점수이면서 플레이어의 점수가 딜러보다 높으면 플레이어가 이긴다`() {
-        // given
-        player.startGame(DeckMockBuilder.buildCardsWithParam(normalCardsSpadeSum20))
-        dealer.startGame(DeckMockBuilder.buildCardsWithParam(normalCardsDiamondSum17))
-        // when
-        val playerGameResult = dealer.getPlayerGameResult(player)
-        // then
-        assertEquals(false, player.isBust())
-        assertTrue(player.getSumOfValues() > dealer.getSumOfValues())
-        assertEquals(GameResult.WIN, playerGameResult)
-    }
-
-    @Test
-    fun `딜러는 일반 점수이고 플레이어만 버스트라면 플레이어가 진다`() {
-        // given
-        val deckMock = DeckMockBuilder.buildCardsWithParam(bustCloverCards + normalCardsSpadeSum20)
-        player.startGame(deckMock)
-        player.offeredOneCard(deckMock)
-        dealer.startGame(deckMock)
-        // when
-        val playerGameResult = dealer.getPlayerGameResult(player)
-        // then
-        assertEquals(true, player.isBust())
-        assertEquals(false, dealer.isBust())
-        assertEquals(GameResult.LOSE, playerGameResult)
-    }
-
-    @Test
-    fun `플레이어는 일반 점수이고 딜러만 블랙잭이면 플레이어가 진다`() {
-        // given
-        player.startGame(DeckMockBuilder.buildCardsWithParam(normalCardsSpadeSum20))
-        dealer.startGame(DeckMockBuilder.buildCardsWithParam(blackJackHeartCards))
-        // when
-        val playerGameResult = dealer.getPlayerGameResult(player)
-        // then
-        assertEquals(false, player.isBlackJack())
-        assertEquals(true, dealer.isBlackJack())
-        assertEquals(GameResult.LOSE, playerGameResult)
-    }
-
-    @Test
-    fun `딜러와 플레이어가 일반 점수이고 딜러 점수가 플레이어 보다 높으면 플레이어가 진다`() {
-        // given
-        player.startGame(DeckMockBuilder.buildCardsWithParam(normalCardsDiamondSum17))
-        dealer.startGame(DeckMockBuilder.buildCardsWithParam(normalCardsSpadeSum20))
-        // when
-        val playerGameResult = dealer.getPlayerGameResult(player)
-        // then
-        assertEquals(false, dealer.isBust())
-        assertTrue(player.getSumOfValues() < dealer.getSumOfValues())
-        assertEquals(GameResult.LOSE, playerGameResult)
     }
 
     @Test
@@ -157,7 +90,7 @@ class DealerTest {
     }
 
     @Test
-    fun `딜러와 플레이어가 모두 일반 점수이면서 동점이면 무승부다`() {
+    fun `딜러와 플레이어가 동점이면서 둘 다 버스트가 아니면 무승부다`() {
         // given
         player.startGame(DeckMockBuilder.buildCardsWithParam(normalCardsSpadeSum20))
         dealer.startGame(DeckMockBuilder.buildCardsWithParam(normalCardsSpadeSum20))
@@ -168,6 +101,73 @@ class DealerTest {
         assertEquals(false, dealer.isBust())
         assertEquals(dealer.getSumOfValues(), player.getSumOfValues())
         assertEquals(GameResult.TIE, playerGameResult)
+    }
+
+    @Test
+    fun `플레이어가 블랙잭이고 딜러가 블랙잭이 아니라면 플레이어가 이긴다`() {
+        // given
+        player.startGame(DeckMockBuilder.buildCardsWithParam(blackJackHeartCards))
+        dealer.startGame(DeckMockBuilder.buildCardsWithParam(normalCardsSpadeSum20))
+        // when
+        val playerGameResult = dealer.getPlayerGameResult(player)
+        // then
+        assertEquals(true, player.isBlackJack())
+        assertEquals(false, dealer.isBlackJack())
+        assertEquals(GameResult.WIN, playerGameResult)
+    }
+
+    @Test
+    fun `플레이어가 버스트가 아니면서 플레이어의 점수가 딜러보다 높으면 플레이어가 이긴다`() {
+        // given
+        player.startGame(DeckMockBuilder.buildCardsWithParam(normalCardsSpadeSum20))
+        dealer.startGame(DeckMockBuilder.buildCardsWithParam(normalCardsDiamondSum17))
+        // when
+        val playerGameResult = dealer.getPlayerGameResult(player)
+        // then
+        assertEquals(false, player.isBust())
+        assertTrue(player.getSumOfValues() > dealer.getSumOfValues())
+        assertEquals(GameResult.WIN, playerGameResult)
+    }
+
+    @Test
+    fun `플레이어만 버스트이고 딜러가 일반 점수라면 플레이어가 진다`() {
+        // given
+        val deckMock = DeckMockBuilder.buildCardsWithParam(bustCloverCards + normalCardsSpadeSum20)
+        player.startGame(deckMock)
+        player.offeredOneCard(deckMock)
+        dealer.startGame(deckMock)
+        // when
+        val playerGameResult = dealer.getPlayerGameResult(player)
+        // then
+        assertEquals(true, player.isBust())
+        assertEquals(false, dealer.isBust())
+        assertEquals(GameResult.LOSE, playerGameResult)
+    }
+
+    @Test
+    fun `딜러가 블랙잭이고 플레이어가 블랙잭이 아니라면 플레이어가 진다`() {
+        // given
+        player.startGame(DeckMockBuilder.buildCardsWithParam(normalCardsSpadeSum20))
+        dealer.startGame(DeckMockBuilder.buildCardsWithParam(blackJackHeartCards))
+        // when
+        val playerGameResult = dealer.getPlayerGameResult(player)
+        // then
+        assertEquals(false, player.isBlackJack())
+        assertEquals(true, dealer.isBlackJack())
+        assertEquals(GameResult.LOSE, playerGameResult)
+    }
+
+    @Test
+    fun `딜러가 버스트가 아니면서 딜러 점수가 플레이어 보다 높으면 플레이어가 진다`() {
+        // given
+        player.startGame(DeckMockBuilder.buildCardsWithParam(normalCardsDiamondSum17))
+        dealer.startGame(DeckMockBuilder.buildCardsWithParam(normalCardsSpadeSum20))
+        // when
+        val playerGameResult = dealer.getPlayerGameResult(player)
+        // then
+        assertEquals(false, dealer.isBust())
+        assertTrue(player.getSumOfValues() < dealer.getSumOfValues())
+        assertEquals(GameResult.LOSE, playerGameResult)
     }
 
     companion object {

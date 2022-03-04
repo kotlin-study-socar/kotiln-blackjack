@@ -45,16 +45,22 @@ class Dealer(
         val sumOfPlayer = player.getSumOfValues()
         val sumOfDealer = getSumOfValues()
 
-        // 1. 딜러가 버스트거나 2. 플레이어만 블랙잭이거나 3. 플레이어가 버스트가 아니면서 딜러보다 점수가 높으면 => 딜러가 진다
-        if (isBust() || (player.isBlackJack() && !isBlackJack()) || (!player.isBust() && sumOfPlayer > sumOfDealer)) {
-            return GameResult.LOSE
-        }
-        // 2. 플레이어만 버스트거나 2. 딜러만 블랙잭이거나 3. 딜러가 플레이어 보다 점수가 높으면 => 딜러가 이긴다
-        if (player.isBust() || (isBlackJack() && !player.isBlackJack()) || sumOfPlayer < sumOfDealer) {
-            return GameResult.WIN
-        }
-        // 그 외의 경우 무승부다 => 1. 둘 다 블랙잭이거나 2. 둘 다 버스트가 아니면서 동점이라면 무승부
-        return GameResult.TIE
+        if (isDealerTieCondition(sumOfDealer, sumOfPlayer, player)) return GameResult.TIE
+
+        if (isDealerLoseCondition(sumOfDealer, sumOfPlayer, player)) return GameResult.LOSE
+
+        // 1. 플레이어만 버스트거나 2. 딜러만 블랙잭이거나 3. 딜러가 플레이어 보다 점수가 높으면 → 딜러가 이긴다
+        return GameResult.WIN
+    }
+
+    private fun isDealerTieCondition(sumOfDealer: Int, sumOfPlayer: Int, player: Player): Boolean {
+        // 1. 둘 다 블랙잭이거나 2. 둘 다 버스트가 아니면서 동점이라면 무승부
+        return (isBlackJack() && player.isBlackJack()) || (sumOfPlayer == sumOfDealer && !isBust())
+    }
+
+    private fun isDealerLoseCondition(sumOfDealer: Int, sumOfPlayer: Int, player: Player): Boolean {
+        // 1. 딜러가 버스트거나 2. 플레이어만 블랙잭이거나 3. 플레이어가 버스트가 아니면서 딜러보다 점수가 높으면 → 딜러가 진다
+        return isBust() || player.isBlackJack() || (!player.isBust() && sumOfPlayer > sumOfDealer)
     }
 
     companion object {
