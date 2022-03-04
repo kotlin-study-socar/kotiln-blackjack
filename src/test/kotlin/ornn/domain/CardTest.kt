@@ -18,18 +18,18 @@ class CardTest {
     @Test
     fun `게임_운영을_위한_카드덱_생성을_완료하면_카드의_총개수는_52장이다`() {
         // when
-        val opCards = Cards.getOpCards()
+        val deck = Cards.getDeck()
 
         // then
-        assertThat(opCards.size).isEqualTo(52)
+        assertThat(deck.size).isEqualTo(52)
     }
 
     @Test
     fun `JQK카드가_존재할때_변환된_숫자정보는_10으로_통일한다`() {
         // when
-        val scoreOfJ = cardSpadeJ.getScoreOfNum()
-        val scoreOfQ = cardSpadeQ.getScoreOfNum()
-        val scoreOfK = cardSpadeK.getScoreOfNum()
+        val scoreOfJ = cardSpadeJ.getScore()
+        val scoreOfQ = cardSpadeQ.getScore()
+        val scoreOfK = cardSpadeK.getScore()
 
         // then
         assertThat(scoreOfJ).isEqualTo(10)
