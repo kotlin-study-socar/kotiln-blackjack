@@ -3,6 +3,7 @@ package ornn.ui
 import ornn.domain.Card
 import ornn.domain.Cards
 import ornn.domain.Dealer
+import ornn.domain.User
 import ornn.domain.Users
 import ornn.dto.DealerDto
 import ornn.dto.GameDto
@@ -90,7 +91,11 @@ object OutputView {
     }
 
     private fun printUsersResult(users: Users) {
-        users.forEach { println(it.resultFormat()) }
+        users.forEach { println(userResultFormat(it)) }
+    }
+
+    private fun userResultFormat(user: User): String {
+        return "${user.getName()}: ${user.result.korean}"
     }
 
     fun printCardsSumIsMoreThanScoreMax() {
